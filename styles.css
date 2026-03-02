@@ -64,6 +64,12 @@ body {
   overflow-y: auto;
   padding-right: 0.2rem;
 }
+.pool-hint {
+  grid-column: 1/-1;
+  margin: 0.25rem 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
 
 .player-card {
   position: relative;
@@ -80,7 +86,7 @@ body {
 .remove-btn {
   position: absolute;
   top: 4px;
-  left: 4px;
+  right: 4px;
   width: 18px;
   height: 18px;
   border: 1px solid rgba(0, 0, 0, 0.2);
@@ -130,33 +136,44 @@ body {
   margin-top: 0.35rem;
 }
 
-.flag-row { display: flex; gap: 0.2rem; flex-wrap: wrap; max-width: 78px; }
+.flag-row { display: flex; gap: 0.2rem; flex-wrap: wrap; max-width: 90px; }
 .country-flag {
   width: 18px;
   height: 12px;
   border-radius: 2px;
   border: 1px solid rgba(255, 255, 255, 0.45);
   display: inline-block;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
 }
-.country-flag.usa { background: linear-gradient(90deg, #213f9a 0 42%, transparent 42%), repeating-linear-gradient(to bottom, #c82c2c 0, #c82c2c 2px, #fff 2px, #fff 4px); }
-.country-flag.italy { background: linear-gradient(90deg, #1f8f44 0 33%, #fff 33% 66%, #d12929 66%); }
-.country-flag.nigeria { background: linear-gradient(90deg, #218c47 0 33%, #fff 33% 66%, #218c47 66%); }
-.country-flag.germany { background: linear-gradient(to bottom, #111 0 33%, #c42626 33% 66%, #efc130 66%); }
-.country-flag.norway { background: #c42626; }
-.country-flag.england { background: #fff; background-image: linear-gradient(90deg, transparent 42%, #d12929 42% 58%, transparent 58%), linear-gradient(transparent 42%, #d12929 42% 58%, transparent 58%); }
-.country-flag.japan { background: radial-gradient(circle at center, #d12929 0 35%, #fff 36%); }
-.country-flag.croatia { background: linear-gradient(to bottom, #d12929 0 33%, #fff 33% 66%, #214ea0 66%); }
-.country-flag.liberia { background: linear-gradient(90deg, #214ea0 0 40%, transparent 40%), repeating-linear-gradient(to bottom, #d12929 0, #d12929 2px, #fff 2px, #fff 4px); }
-.country-flag.jamaica { background: linear-gradient(45deg, #111 0 45%, #e3c62f 45% 55%, #218c47 55%); }
-.country-flag.france { background: linear-gradient(90deg, #214ea0 0 33%, #fff 33% 66%, #d12929 66%); }
-.country-flag.ghana { background: linear-gradient(to bottom, #d12929 0 33%, #e3c62f 33% 66%, #218c47 66%); }
-.country-flag.netherlands { background: linear-gradient(to bottom, #d12929 0 33%, #fff 33% 66%, #214ea0 66%); }
-.country-flag.suriname { background: linear-gradient(to bottom, #218c47 0 20%, #fff 20% 30%, #d12929 30% 70%, #fff 70% 80%, #218c47 80%); }
-.country-flag.lithuania { background: linear-gradient(to bottom, #e3c62f 0 33%, #218c47 33% 66%, #d12929 66%); }
-.country-flag.mexico { background: linear-gradient(90deg, #218c47 0 33%, #fff 33% 66%, #d12929 66%); }
-.country-flag.argentina { background: linear-gradient(to bottom, #78b7ff 0 33%, #fff 33% 66%, #78b7ff 66%); }
-.country-flag.portugal { background: linear-gradient(90deg, #218c47 0 42%, #d12929 42%); }
-.country-flag.denmark { background: #d12929; }
+.country-flag img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.country-flag.fallback-usa { background: linear-gradient(90deg, #213f9a 0 42%, transparent 42%), repeating-linear-gradient(to bottom, #c82c2c 0, #c82c2c 2px, #fff 2px, #fff 4px); }
+.country-flag.fallback-italy { background: linear-gradient(90deg, #1f8f44 0 33%, #fff 33% 66%, #d12929 66%); }
+.country-flag.fallback-nigeria { background: linear-gradient(90deg, #218c47 0 33%, #fff 33% 66%, #218c47 66%); }
+.country-flag.fallback-germany { background: linear-gradient(to bottom, #111 0 33%, #c42626 33% 66%, #efc130 66%); }
+.country-flag.fallback-norway { background: #c42626; }
+.country-flag.fallback-england { background: #fff; background-image: linear-gradient(90deg, transparent 42%, #d12929 42% 58%, transparent 58%), linear-gradient(transparent 42%, #d12929 42% 58%, transparent 58%); }
+.country-flag.fallback-japan { background: radial-gradient(circle at center, #d12929 0 35%, #fff 36%); }
+.country-flag.fallback-croatia { background: linear-gradient(to bottom, #d12929 0 33%, #fff 33% 66%, #214ea0 66%); }
+.country-flag.fallback-liberia { background: linear-gradient(90deg, #214ea0 0 40%, transparent 40%), repeating-linear-gradient(to bottom, #d12929 0, #d12929 2px, #fff 2px, #fff 4px); }
+.country-flag.fallback-jamaica { background: linear-gradient(45deg, #111 0 45%, #e3c62f 45% 55%, #218c47 55%); }
+.country-flag.fallback-france { background: linear-gradient(90deg, #214ea0 0 33%, #fff 33% 66%, #d12929 66%); }
+.country-flag.fallback-ghana { background: linear-gradient(to bottom, #d12929 0 33%, #e3c62f 33% 66%, #218c47 66%); }
+.country-flag.fallback-netherlands { background: linear-gradient(to bottom, #d12929 0 33%, #fff 33% 66%, #214ea0 66%); }
+.country-flag.fallback-suriname { background: linear-gradient(to bottom, #218c47 0 20%, #fff 20% 30%, #d12929 30% 70%, #fff 70% 80%, #218c47 80%); }
+.country-flag.fallback-lithuania { background: linear-gradient(to bottom, #e3c62f 0 33%, #218c47 33% 66%, #d12929 66%); }
+.country-flag.fallback-mexico { background: linear-gradient(90deg, #218c47 0 33%, #fff 33% 66%, #d12929 66%); }
+.country-flag.fallback-argentina { background: linear-gradient(to bottom, #78b7ff 0 33%, #fff 33% 66%, #78b7ff 66%); }
+.country-flag.fallback-portugal { background: linear-gradient(90deg, #218c47 0 42%, #d12929 42%); }
+.country-flag.fallback-denmark { background: #d12929; }
+.country-flag.fallback-canada { background: linear-gradient(90deg, #d12929 0 25%, #fff 25% 75%, #d12929 75%); }
+.country-flag.fallback-spain { background: linear-gradient(to bottom, #c42626 0 25%, #efc130 25% 75%, #c42626 75%); }
 
 .info-btn {
   border-radius: 999px;
@@ -185,7 +202,7 @@ body {
 
 .pitch {
   position: relative;
-  width: min(84vw, 720px);
+  width: min(88vw, 800px);
   aspect-ratio: 11 / 16;
   margin: 0 auto;
   border-radius: 12px;
@@ -201,8 +218,8 @@ body {
 .slot {
   position: absolute;
   transform: translate(-50%, -50%);
-  width: clamp(78px, 9vw, 96px);
-  min-height: 112px;
+  width: clamp(72px, 8vw, 90px);
+  min-height: 106px;
   background: var(--slot);
   border-radius: 12px;
   border: 1px dashed rgba(255, 255, 255, 0.44);
