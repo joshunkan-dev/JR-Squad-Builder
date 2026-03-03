@@ -1,65 +1,63 @@
 const players = [
-  { id: "pulisic", fullName: "Christian Pulisic", displayName: "Pulisic", position: "RW", transfermarktId: "315779", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/315779-1691696699.jpg?lm=1", age: 27, club: "AC Milan", clubCountry: "Italy", birthCity: "Hershey", birthCountry: "USA", seasonStats: { appearances: 36, goals: 15, assists: 9 }, eligibleCountries: ["USA", "Croatia"], showDualFlagsOnCard: false },
-  { id: "balogun", fullName: "Folarin Balogun", displayName: "Balogun", position: "ST", transfermarktId: "503770", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/503770-1672838317.jpg?lm=1", age: 24, club: "AS Monaco", clubCountry: "France", birthCity: "New York", birthCountry: "USA", seasonStats: { appearances: 28, goals: 10, assists: 3 }, eligibleCountries: ["USA", "England", "Nigeria"], showDualFlagsOnCard: false },
-  { id: "weah", fullName: "Timothy Weah", displayName: "Weah", position: "RM", transfermarktId: "406635", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/370846-1692277669.jpg?lm=1", age: 26, club: "Olympique Marseille", clubCountry: "France", birthCity: "New York", birthCountry: "USA", seasonStats: { appearances: 34, goals: 6, assists: 8 }, eligibleCountries: ["USA", "Liberia", "Jamaica", "France"], showDualFlagsOnCard: false },
-  { id: "mckennie", fullName: "Weston McKennie", displayName: "McKennie", position: "CM", transfermarktId: "332697", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/332697-1754245044.jpg?lm=1", age: 27, club: "Juventus", clubCountry: "Italy", birthCity: "Little Elm", birthCountry: "USA", seasonStats: { appearances: 35, goals: 8, assists: 7 }, eligibleCountries: ["USA"], showDualFlagsOnCard: false },
-  { id: "musah", fullName: "Yunus Musah", displayName: "Musah", position: "CDM", transfermarktId: "503991", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/503991-1684913655.jpg?lm=1", age: 23, club: "Atalanta", clubCountry: "Italy", birthCity: "New York", birthCountry: "USA", seasonStats: { appearances: 31, goals: 2, assists: 3 }, eligibleCountries: ["USA", "England", "Ghana", "Italy"], showDualFlagsOnCard: false },
-  { id: "tessmann", fullName: "Tanner Tessmann", displayName: "Tessmann", position: "CM", transfermarktId: 670096 , explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/670096-1722196121.jpg?lm=1", age: 24, club: "Olympique Lyon", clubCountry: "France", birthCity: "Birmingham", birthCountry: "USA" , seasonStates: { appearances: 32, goals: 2, assists: 1 }, eligibleCountries: ["USA"] , showDualFlagsOnCard: false },
-  { id: "cardoso", fullName: "J. Cardsoso" , displayName: "Johnny", position: "CM" , transfermarktId: 689505 , explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/689505-1742036970.jpg?lm=1", age: 24, club: "Atlético Madrid", clubCountry: "Spain" , birthCity: "Denville" , birthCountry: "USA" , seasonStats: { appearances: 19, goals: 1, assists: 0 }, eligibleCountries: ["USA", "Brazil"], showDualFlagsOnCard: false },
-  { id: "adams", fullName: "Tyler Adams", displayName: "Adams", position: "CDM", transfermarktId: "332705", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/332705-1754244571.jpg?lm=1", age: 27, club: "AFC Bournemouth", clubCountry: "England", birthCity: "Wappingers Falls", birthCountry: "USA", seasonStats: { appearances: 24, goals: 1, assists: 2 }, eligibleCountries: ["USA"], showDualFlagsOnCard: false },
-  { id: "robinson", fullName: "Antonee 'Jedi' Robinson", displayName: "A. Robinson", position: "LB", transfermarktId: "349701", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/349701-1703926612.jpg?lm=1", age: 28, club: "Fulham", clubCountry: "England", birthCity: "Milton Keynes", birthCountry: "England", seasonStats: { appearances: 16, goals: 0, assists: 1 }, eligibleCountries: ["USA", "England"], showDualFlagsOnCard: false },
-  { id: "ream", fullName: "Tim Ream", displayName: "Ream", position: "CB", transfermarktId: "33395", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/145466-1771611843.jpg?lm=1", age: 38, club: "Charlotte FC", clubCountry: "USA", birthCity: "St. Louis", birthCountry: "USA", seasonStats: { appearances: 25, goals: 1, assists: 1 }, eligibleCountries: ["USA"], showDualFlagsOnCard: false },
-  { id: "richards", fullName: "Chris Richards", displayName: "Richards", position: "CB", transfermarktId: "578539", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/578539-1754244701.jpg?lm=1", age: 26, club: "Crystal Palace", clubCountry: "England", birthCity: "Birmingham, Alabama", birthCountry: "USA", seasonStats: { appearances: 27, goals: 1, assists: 1 }, eligibleCountries: ["USA"], showDualFlagsOnCard: false },
-  { id: "scally", fullName: "Joe Scally", displayName: "Scally", position: "RB", transfermarktId: "504153", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/504153-1760967039.jpg?lm=1", age: 23, club: "Borussia Mönchengladbach", clubCountry: "Germany", birthCity: "Lake Grove" , birthCountry: "USA" , seasonStats: {appearances: 22, goals: 1, assists: 2} , eligibleCountries: ["USA"] , showDualFlagsOnCard: false },
-  { id: "dest", fullName: "Sergiño Dest", displayName: "Dest", position: "RB", transfermarktId: "361104", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/361104-1713981952.jpg?lm=1", age: 25, club: "PSV", clubCountry: "Netherlands", birthCity: "Almere", birthCountry: "Netherlands", seasonStats: { appearances: 30, goals: 2, assists: 6 }, eligibleCountries: ["USA", "Netherlands", "Suriname"], showDualFlagsOnCard: false },
-  { id: "turner", fullName: "Matt Turner", displayName: "Turner", position: "GK", transfermarktId: "312151", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/425306-1771708610.jpg?lm=1", age: 32, club: "Nottingham Forest", clubCountry: "England", birthCity: "Park Ridge", birthCountry: "USA", seasonStats: { appearances: 20, goals: 0, assists: 0 }, eligibleCountries: ["USA", "Lithuania"], showDualFlagsOnCard: false },
-  { id: "freese", fullName: "Matt Freese", displayName: "Freese", position: "GK", transfermarktId: "500309", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/500309-1771710880.jpg?lm=1", age: 26, club: "New York City FC", clubCountry: "USA", birthCity: "Wayne", birthCountry: "USA", seasonStats: { appearances: 30, goals: 0, assists: 0 }, eligibleCountries: ["USA"], showDualFlagsOnCard: false },
-  { id: "brady", fullName: "Chris Brady", displayName: "C. Brady", position: "GK", transfermarktId: "698282", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/765504-1771695668.jpg?lm=1", age: 21, club: "Chicago Fire", clubCountry: "USA", birthCity: "Naperville", birthCountry: "USA", seasonStats: { appearances: 27, goals: 0, assists: 0 }, eligibleCountries: ["USA"], showDualFlagsOnCard: false },
-  { id: "kochen", fullName: "Diego Kochen", displayName: "Kochen", position: "GK", transfermarktId: "938861", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/938144-1727891789.jpg?lm=1", age: 19, club: "Barcelona", clubCountry: "Spain", birthCity: "Miami", birthCountry: "USA", seasonStats: { appearances: 0, goals: 0, assists: 0 }, eligibleCountries: ["USA", "Spain", "Peru"], showDualFlagsOnCard: true },
-  { id: "klinsmann", fullName: "Jonathan Klinsmann", displayName: "Klinsmann", position: "GK", transfermarktId: "291290", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/334992-1678024209.jpg?lm=1", age: 28, club: "Cesena", clubCountry: "Italy", birthCity: "Munich", birthCountry: "Germany", seasonStats: { appearances: 25, goals: 0, assists: 0 }, eligibleCountries: ["USA", "Germany"], showDualFlagsOnCard: true },
-  { id: "slonina", fullName: "Gabriel Slonina", displayName: "Slonina", position: "GK", transfermarktId: "656316", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/656316-1645958054.jpg?lm=1", age: 21, club: "Chelsea", clubCountry: "England", birthCity: "Addison", birthCountry: "USA", seasonStats: { appearances: 0, goals: 0, assists: 0 }, eligibleCountries: ["USA", "Poland"], showDualFlagsOnCard: false },
-  { id: "pepi", fullName: "Ricardo Pepi", displayName: "Pepi", position: "ST", transfermarktId: "628264", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/627207-1745174088.jpg?lm=1", age: 23, club: "PSV", clubCountry: "Netherlands", birthCity: "El Paso", birthCountry: "USA", seasonStats: { appearances: 32, goals: 14, assists: 4 }, eligibleCountries: ["USA", "Mexico"], showDualFlagsOnCard: false },
-  { id: "haji-wright", fullName: "Haji Wright", displayName: "H. Wright", position: "ST", transfermarktId: "315291", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/315291-1709161726.jpg?lm=1", age: 27, club: "Coventry City", clubCountry: "England", birthCity: "Los Angeles", birthCountry: "USA", seasonStats: { appearances: 33, goals: 13, assists: 5 }, eligibleCountries: ["USA", "Liberia"], showDualFlagsOnCard: false },
-  { id: "agyemang", fullName: "Patrick Agyemang", displayName: "Agyemang", position: "ST", transfermarktId: "1089574", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/1089574-1740509246.jpg?lm=1", age: 24, club: "Derby County", clubCountry: "USA", birthCity: "East Hartford", birthCountry: "USA", seasonStats: { appearances: 29, goals: 10, assists: 4 }, eligibleCountries: ["USA", "Ghana"], showDualFlagsOnCard: false },
-  { id: "mcglynn", fullName: "Jack McGlynn", displayName: "McGlynn", position: "CM", transfermarktId: "724547", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/724547-1771689209.jpg?lm=1", age: 22, club: "Houston Dynamo", clubCountry: "USA", birthCity: "Middletown", birthCountry: "USA", seasonStats: { appearances: 33, goals: 4, assists: 7 }, eligibleCountries: ["USA", "Ireland"], showDualFlagsOnCard: false },
-  { id: "morris", fullName: "Aidan Morris", displayName: "A. Morris", position: "CM", transfermarktId: "513968", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/513968-1709481996.jpg?lm=1", age: 24, club: "Middlesbrough", clubCountry: "England", birthCity: "Fort Lauderdale", birthCountry: "USA", seasonStats: { appearances: 34, goals: 2, assists: 5 }, eligibleCountries: ["USA" , "Canada"], showDualFlagsOnCard: false },
-  { id: "sands", fullName: "James Sands", displayName: "Sands", position: "CDM", transfermarktId: "393321", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/393321-1755032856.jpg?lm=1",  age: 25, club: "St. Pauli", clubCountry: "Germany", birthCity: "Rye", birthCountry: "USA", seasonStats: { appearances: 31, goals: 1, assists: 2 }, eligibleCountries: ["USA"], showDualFlagsOnCard: false },
-  { id: "luna", fullName: "Diego Luna", displayName: "Luna", position: "CAM", transfermarktId: "880626", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/880626-1771718507.jpg?lm=1", age: 21, club: "Real Salt Lake", clubCountry: "USA", birthCity: "Sunnyvale", birthCountry: "USA", seasonStats: { appearances: 31, goals: 8, assists: 9 }, eligibleCountries: ["USA", "Mexico"], showDualFlagsOnCard: false },
-  { id: "reyna", fullName: "Giovanni Reyna", displayName: "Reyna", position: "CAM", transfermarktId: "504215", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/504215-1760967520.jpg?lm=1",  age: 24, club: "Borussia Mönchengladbach", clubCountry: "Germany", birthCity: "Sunderland", birthCountry: "England", seasonStats: { appearances: 21, goals: 3, assists: 4 }, eligibleCountries: ["USA", "England", "Argentina", "Portugal"], showDualFlagsOnCard: false },
-  { id: "brenden-aaronson", fullName: "Brenden Aaronson", displayName: "B. Aaronson", position: "CAM", transfermarktId: "393323", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/393323-1691614083.jpg?lm=1", age: 24, club: "Leeds United", clubCountry: "England", birthCity: "Medford", birthCountry: "USA", seasonStats: { appearances: 27, goals: 4, assists: 3 }, eligibleCountries: ["USA"], showDualFlagsOnCard: false },
-  { id: "paxten-aaronson", fullName: "Paxten Aaronson", displayName: "P. Aaronson", position: "CAM", transfermarktId: "795738", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/795738-1771612805.jpg?lm=1", age: 21, club: "Colorado Rapis", clubCountry: "USA", birthCity: "Medford", birthCountry: "USA", seasonStats: { appearances: 2, goals: 0, assists: 0 }, eligibleCountries: ["USA"], showDualFlagsOnCard: false },
-  { id: "liam-west", fullName: "Liam West", displayName: "West", position: "RW", transfermarktId: "1068117", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/1068117-1771592380.jpg?lm=1", age: 18, club: "FC Copenhagen", clubCountry: "Norway", birthCity: "Oslo", birthCountry: "Norway", seasonStats: { appearances: 2, goals: 0, assists: 0 }, eligibleCountries: ["USA", "Norway"], showDualFlagsOnCard: true },
-  { id: "culbreath", fullName: "Montrell Culbreath", displayName: "Culbreath", position: "RW", transfermarktId: "1058514", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/1058514-1756412896.jpg?lm=1", age: 19, club: "Bayer Leverkusen", clubCountry: "Germany", birthCity: "Munich", birthCountry: "Germany", seasonStats: { appearances: 18, goals: 5, assists: 2 }, eligibleCountries: ["USA", "Germany"], showDualFlagsOnCard: true },
-  { id: "tillman", fullName: "Malik Tillman", displayName: "Tillman", position: "CAM", transfermarktId: "467437", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/467437-1758703514.jpg?lm=1", age: 23, club: "Bayer Leverkusen", clubCountry: "Germany", birthCity: "Nürnberg", birthCountry: "Germany", seasonStats: { appearances: 18, goals: 4, assists: 1 }, eligibleCountries: ["USA", "Germany"], showDualFlagsOnCard: false },
-  { id: "mckenzie", fullName: "Mark McKenzie", displayName: "McKenzie", position: "CB", transfermarktId: "429259", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/429259-1714036622.png?lm=1", age: 26, club: "Toulouse", clubCountry: "France", birthCity: "Bear", birthCountry: "USA", seasonStats: { appearances: 30, goals: 1, assists: 1 }, eligibleCountries: ["USA", "Jamaica"], showDualFlagsOnCard: false },
-  { id: "banks", fullName: "Noahkai Banks", displayName: "Banks", position: "CB", transfermarktId: "1043328", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/923945-1755200998.jpg?lm=1", age: 18, club: "FC Augsburg", clubCountry: "Germany", birthCity: "Honolulu", birthCountry: "USA", seasonStats: { appearances: 19, goals: 1, assists: 0 }, eligibleCountries: ["USA", "Germany"], showDualFlagsOnCard: false },
+  { id: "pulisic", fullName: "Christian Pulisic", displayName: "Pulisic", position: "RW", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/315779-1691696699.jpg?lm=1", age: 27, club: "AC Milan", clubCountry: "Italy", birthCity: "Hershey", birthCountry: "USA", eligibleCountries: ["USA", "Croatia"], dominantFoot: "Right", otherPositions: ["LW", "CAM"], showDualFlagsOnCard: false },
+  { id: "balogun", fullName: "Folarin Balogun", displayName: "Balogun", position: "ST", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/503770-1672838317.jpg?lm=1", age: 24, club: "AS Monaco", clubCountry: "France", birthCity: "New York", birthCountry: "USA", eligibleCountries: ["USA", "England", "Nigeria"], dominantFoot: "Right", otherPositions: ["CF"], showDualFlagsOnCard: false },
+  { id: "weah", fullName: "Timothy Weah", displayName: "Weah", position: "RM", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/370846-1692277669.jpg?lm=1", age: 26, club: "Olympique Marseille", clubCountry: "France", birthCity: "New York", birthCountry: "USA", eligibleCountries: ["USA", "Liberia", "Jamaica", "France"], dominantFoot: "Right", otherPositions: ["RW", "ST"], showDualFlagsOnCard: false },
+  { id: "mckennie", fullName: "Weston McKennie", displayName: "McKennie", position: "CM", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/332697-1754245044.jpg?lm=1", age: 27, club: "Juventus", clubCountry: "Italy", birthCity: "Little Elm", birthCountry: "USA", eligibleCountries: ["USA"], dominantFoot: "Right", otherPositions: ["CAM", "RM", "RWB"], showDualFlagsOnCard: false },
+  { id: "musah", fullName: "Yunus Musah", displayName: "Musah", position: "CDM", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/503991-1684913655.jpg?lm=1", age: 23, club: "Atalanta", clubCountry: "Italy", birthCity: "New York", birthCountry: "USA", eligibleCountries: ["USA", "England", "Ghana", "Italy"], dominantFoot: "Right", otherPositions: ["CM", "RM"], showDualFlagsOnCard: false },
+  { id: "tessmann", fullName: "Tanner Tessmann", displayName: "Tessmann", position: "CM", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/670096-1722196121.jpg?lm=1", age: 24, club: "Olympique Lyon", clubCountry: "France", birthCity: "Birmingham", birthCountry: "USA", eligibleCountries: ["USA"], dominantFoot: "Right", otherPositions: ["CDM"], showDualFlagsOnCard: false },
+  { id: "cardoso", fullName: "Johnny Cardoso", displayName: "Johnny", position: "CM", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/689505-1742036970.jpg?lm=1", age: 24, club: "Atlético Madrid", clubCountry: "Spain", birthCity: "Denville", birthCountry: "USA", eligibleCountries: ["USA", "Brazil"], dominantFoot: "Right", otherPositions: ["CDM"], showDualFlagsOnCard: false },
+  { id: "adams", fullName: "Tyler Adams", displayName: "Adams", position: "CDM", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/332705-1754244571.jpg?lm=1", age: 27, club: "AFC Bournemouth", clubCountry: "England", birthCity: "Wappingers Falls", birthCountry: "USA", eligibleCountries: ["USA"], dominantFoot: "Right", otherPositions: ["CM", "RB"], showDualFlagsOnCard: false },
+  { id: "robinson", fullName: "Antonee 'Jedi' Robinson", displayName: "A. Robinson", position: "LB", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/349701-1703926612.jpg?lm=1", age: 28, club: "Fulham", clubCountry: "England", birthCity: "Milton Keynes", birthCountry: "England", eligibleCountries: ["USA", "England"], dominantFoot: "Left", otherPositions: ["LWB"], showDualFlagsOnCard: false },
+  { id: "ream", fullName: "Tim Ream", displayName: "Ream", position: "CB", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/145466-1771611843.jpg?lm=1", age: 38, club: "Charlotte FC", clubCountry: "USA", birthCity: "St. Louis", birthCountry: "USA", eligibleCountries: ["USA"], dominantFoot: "Left", otherPositions: ["LB"], showDualFlagsOnCard: false },
+  { id: "richards", fullName: "Chris Richards", displayName: "Richards", position: "CB", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/578539-1754244701.jpg?lm=1", age: 26, club: "Crystal Palace", clubCountry: "England", birthCity: "Birmingham, Alabama", birthCountry: "USA", eligibleCountries: ["USA"], dominantFoot: "Right", otherPositions: ["RB"], showDualFlagsOnCard: false },
+  { id: "scally", fullName: "Joe Scally", displayName: "Scally", position: "RB", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/504153-1760967039.jpg?lm=1", age: 23, club: "Borussia Mönchengladbach", clubCountry: "Germany", birthCity: "Lake Grove", birthCountry: "USA", eligibleCountries: ["USA"], dominantFoot: "Right", otherPositions: ["LB"], showDualFlagsOnCard: false },
+  { id: "dest", fullName: "Sergiño Dest", displayName: "Dest", position: "RB", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/361104-1713981952.jpg?lm=1", age: 25, club: "PSV", clubCountry: "Netherlands", birthCity: "Almere", birthCountry: "Netherlands", eligibleCountries: ["USA", "Netherlands", "Suriname"], dominantFoot: "Right", otherPositions: ["LB", "RW"], showDualFlagsOnCard: false },
+  { id: "turner", fullName: "Matt Turner", displayName: "Turner", position: "GK", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/425306-1771708610.jpg?lm=1", age: 32, club: "Nottingham Forest", clubCountry: "England", birthCity: "Park Ridge", birthCountry: "USA", eligibleCountries: ["USA", "Lithuania"], dominantFoot: "Right", otherPositions: [], showDualFlagsOnCard: false },
+  { id: "freese", fullName: "Matt Freese", displayName: "Freese", position: "GK", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/500309-1771710880.jpg?lm=1", age: 26, club: "New York City FC", clubCountry: "USA", birthCity: "Wayne", birthCountry: "USA", eligibleCountries: ["USA"], dominantFoot: "Right", otherPositions: [], showDualFlagsOnCard: false },
+  { id: "brady", fullName: "Chris Brady", displayName: "C. Brady", position: "GK", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/765504-1771695668.jpg?lm=1", age: 21, club: "Chicago Fire", clubCountry: "USA", birthCity: "Naperville", birthCountry: "USA", eligibleCountries: ["USA"], dominantFoot: "Left", otherPositions: [], showDualFlagsOnCard: false },
+  { id: "kochen", fullName: "Diego Kochen", displayName: "Kochen", position: "GK", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/938144-1727891789.jpg?lm=1", age: 19, club: "Barcelona", clubCountry: "Spain", birthCity: "Miami", birthCountry: "USA", eligibleCountries: ["USA", "Spain", "Peru"], dominantFoot: "Right", otherPositions: [], showDualFlagsOnCard: true },
+  { id: "klinsmann", fullName: "Jonathan Klinsmann", displayName: "Klinsmann", position: "GK", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/334992-1678024209.jpg?lm=1", age: 28, club: "Cesena", clubCountry: "Italy", birthCity: "Munich", birthCountry: "Germany", eligibleCountries: ["USA", "Germany"], dominantFoot: "Right", otherPositions: [], showDualFlagsOnCard: true },
+  { id: "slonina", fullName: "Gabriel Slonina", displayName: "Slonina", position: "GK", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/656316-1645958054.jpg?lm=1", age: 21, club: "Chelsea", clubCountry: "England", birthCity: "Addison", birthCountry: "USA", eligibleCountries: ["USA", "Poland"], dominantFoot: "Right", otherPositions: [], showDualFlagsOnCard: false },
+  { id: "pepi", fullName: "Ricardo Pepi", displayName: "Pepi", position: "ST", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/627207-1745174088.jpg?lm=1", age: 23, club: "PSV", clubCountry: "Netherlands", birthCity: "El Paso", birthCountry: "USA", eligibleCountries: ["USA", "Mexico"], dominantFoot: "Right", otherPositions: ["RW"], showDualFlagsOnCard: false },
+  { id: "haji-wright", fullName: "Haji Wright", displayName: "H. Wright", position: "ST", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/315291-1709161726.jpg?lm=1", age: 27, club: "Coventry City", clubCountry: "England", birthCity: "Los Angeles", birthCountry: "USA", eligibleCountries: ["USA", "Liberia"], dominantFoot: "Right", otherPositions: ["LW"], showDualFlagsOnCard: false },
+  { id: "agyemang", fullName: "Patrick Agyemang", displayName: "Agyemang", position: "ST", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/1089574-1740509246.jpg?lm=1", age: 24, club: "Derby County", clubCountry: "USA", birthCity: "East Hartford", birthCountry: "USA", eligibleCountries: ["USA", "Ghana"], dominantFoot: "Right", otherPositions: ["CF"], showDualFlagsOnCard: true },
+  { id: "mcglynn", fullName: "Jack McGlynn", displayName: "McGlynn", position: "CM", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/724547-1771689209.jpg?lm=1", age: 22, club: "Houston Dynamo", clubCountry: "USA", birthCity: "Middletown", birthCountry: "USA", eligibleCountries: ["USA", "Ireland"], dominantFoot: "Left", otherPositions: ["CAM"], showDualFlagsOnCard: false },
+  { id: "morris", fullName: "Aidan Morris", displayName: "A. Morris", position: "CM", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/513968-1709481996.jpg?lm=1", age: 24, club: "Middlesbrough", clubCountry: "England", birthCity: "Fort Lauderdale", birthCountry: "USA", eligibleCountries: ["USA", "Canada"], dominantFoot: "Right", otherPositions: ["CDM"], showDualFlagsOnCard: false },
+  { id: "sands", fullName: "James Sands", displayName: "Sands", position: "CDM", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/393321-1755032856.jpg?lm=1", age: 25, club: "St. Pauli", clubCountry: "Germany", birthCity: "Rye", birthCountry: "USA", eligibleCountries: ["USA"], dominantFoot: "Right", otherPositions: ["CB"], showDualFlagsOnCard: false },
+  { id: "luna", fullName: "Diego Luna", displayName: "Luna", position: "CAM", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/880626-1771718507.jpg?lm=1", age: 21, club: "Real Salt Lake", clubCountry: "USA", birthCity: "Sunnyvale", birthCountry: "USA", eligibleCountries: ["USA", "Mexico"], dominantFoot: "Right", otherPositions: ["LW", "RW"], showDualFlagsOnCard: false },
+  { id: "reyna", fullName: "Giovanni Reyna", displayName: "Reyna", position: "CAM", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/504215-1760967520.jpg?lm=1", age: 24, club: "Borussia Mönchengladbach", clubCountry: "Germany", birthCity: "Sunderland", birthCountry: "England", eligibleCountries: ["USA", "England", "Argentina", "Portugal"], dominantFoot: "Right", otherPositions: ["RW", "CM"], showDualFlagsOnCard: false },
+  { id: "brenden-aaronson", fullName: "Brenden Aaronson", displayName: "B. Aaronson", position: "CAM", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/393323-1691614083.jpg?lm=1", age: 24, club: "Leeds United", clubCountry: "England", birthCity: "Medford", birthCountry: "USA", eligibleCountries: ["USA"], dominantFoot: "Right", otherPositions: ["CM", "RW"], showDualFlagsOnCard: false },
+  { id: "paxten-aaronson", fullName: "Paxten Aaronson", displayName: "P. Aaronson", position: "CAM", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/795738-1771612805.jpg?lm=1", age: 21, club: "Colorado Rapids", clubCountry: "USA", birthCity: "Medford", birthCountry: "USA", eligibleCountries: ["USA"], dominantFoot: "Right", otherPositions: ["CM"], showDualFlagsOnCard: false },
+  { id: "liam-west", fullName: "Liam West", displayName: "West", position: "RW", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/1068117-1771592380.jpg?lm=1", age: 18, club: "FC Copenhagen", clubCountry: "Norway", birthCity: "Oslo", birthCountry: "Norway", eligibleCountries: ["USA", "Norway"], dominantFoot: "Right", otherPositions: ["LW"], showDualFlagsOnCard: true },
+  { id: "culbreath", fullName: "Montrell Culbreath", displayName: "Culbreath", position: "RW", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/1058514-1756412896.jpg?lm=1", age: 19, club: "Bayer Leverkusen", clubCountry: "Germany", birthCity: "Munich", birthCountry: "Germany", eligibleCountries: ["USA", "Germany"], dominantFoot: "Right", otherPositions: ["LW"], showDualFlagsOnCard: true },
+  { id: "tillman", fullName: "Malik Tillman", displayName: "Tillman", position: "CAM", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/467437-1758703514.jpg?lm=1", age: 23, club: "Bayer Leverkusen", clubCountry: "Germany", birthCity: "Nürnberg", birthCountry: "Germany", eligibleCountries: ["USA", "Germany"], dominantFoot: "Right", otherPositions: ["CM", "RW"], showDualFlagsOnCard: false },
+  { id: "freeman", fullName: "Alex Freeman", displayName: "Freeman", position: "RB", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/985806-1740780278.jpg?lm=1", age: 21, club: "Villarreal", clubCountry: "Spain", birthCity: "Baltimore", birthCountry: "USA", eligibleCountries: ["USA"], dominantFoot: "Right", otherPositions: ["RWB"], showDualFlagsOnCard: false },
+  { id: "mckenzie", fullName: "Mark McKenzie", displayName: "McKenzie", position: "CB", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/429259-1714036622.png?lm=1", age: 26, club: "Toulouse", clubCountry: "France", birthCity: "Bear", birthCountry: "USA", eligibleCountries: ["USA", "Jamaica"], dominantFoot: "Right", otherPositions: ["RB"], showDualFlagsOnCard: false },
+  { id: "banks", fullName: "Noahkai Banks", displayName: "Banks", position: "CB", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/923945-1755200998.jpg?lm=1", age: 18, club: "FC Augsburg", clubCountry: "Germany", birthCity: "Honolulu", birthCountry: "USA", eligibleCountries: ["USA", "Germany"], dominantFoot: "Right", otherPositions: ["CDM"], showDualFlagsOnCard: false },
+  { id: "zendejas", fullName: "Alejandro Zendejas", displayName: "Zendejas", position: "RW", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/351505-1735980931.jpg?lm=1", age: 27, club: "Club América", clubCountry: "Mexico", birthCity: "Ciudad Juárez", birthCountry: "Mexico", eligibleCountries: ["USA", "Mexico"], dominantFoot: "Left", otherPositions: ["LW", "CAM"], showDualFlagsOnCard: false },
+  { id: "trusty", fullName: "Auston Trusty", displayName: "Trusty", position: "CB", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/389253-1647191322.jpg?lm=1", age: 26, club: "Celtic", clubCountry: "England", birthCity: "Media", birthCountry: "USA", eligibleCountries: ["USA"], dominantFoot: "Left", otherPositions: ["LB"], showDualFlagsOnCard: false },
+  { id: "paredes", fullName: "Kevin Paredes", displayName: "Paredes", position: "LW", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/711517-1752736742.jpg?lm=1", age: 22, club: "VfL Wolfsburg", clubCountry: "Germany", birthCity: "South Riding", birthCountry: "USA", eligibleCountries: ["USA"], dominantFoot: "Left", otherPositions: ["LM", "LWB"], showDualFlagsOnCard: false },
+  { id: "kris-lund", fullName: "Kristoffer Lund", displayName: "K. Lund", position: "LB", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/623773-1671206846.jpg?lm=1", age: 23, club: "Palermo", clubCountry: "Italy", birthCity: "Kerteminde", birthCountry: "Denmark", eligibleCountries: ["USA", "Denmark"], dominantFoot: "Left", otherPositions: ["LWB"], showDualFlagsOnCard: false },
 ];
 
 const formationSlots = {
   433: [
-    { key: "st", label: "ST", x: 50, y: 8 },
-    { key: "lw", label: "LW", x: 16, y: 14 },
-    { key: "rw", label: "RW", x: 84, y: 14 },
-    { key: "lcm", label: "CM", x: 24, y: 33 },
-    { key: "cm", label: "CDM", x: 50, y: 37 },
-    { key: "rcm", label: "CM", x: 76, y: 33 },
-    { key: "lb", label: "LB", x: 8, y: 54 },
-    { key: "lcb", label: "CB", x: 34, y: 56 },
-    { key: "rcb", label: "CB", x: 66, y: 56 },
-    { key: "rb", label: "RB", x: 92, y: 54 },
-    { key: "gk", label: "GK", x: 50, y: 78 },
+    { key: "st", label: "ST", x: 50, y: 8 }, { key: "lw", label: "LW", x: 16, y: 14 }, { key: "rw", label: "RW", x: 84, y: 14 },
+    { key: "lcm", label: "CM", x: 24, y: 31 }, { key: "cm", label: "CDM", x: 50, y: 35 }, { key: "rcm", label: "CM", x: 76, y: 31 },
+    { key: "lb", label: "LB", x: 8, y: 51 }, { key: "lcb", label: "CB", x: 34, y: 53 }, { key: "rcb", label: "CB", x: 66, y: 53 }, { key: "rb", label: "RB", x: 92, y: 51 },
+    { key: "gk", label: "GK", x: 50, y: 75 },
   ],
   442: [
     { key: "ls", label: "ST", x: 40, y: 10 }, { key: "rs", label: "ST", x: 60, y: 10 },
-    { key: "lm", label: "LM", x: 8, y: 29 }, { key: "lcm", label: "CM", x: 36, y: 31 }, { key: "rcm", label: "CM", x: 64, y: 31 }, { key: "rm", label: "RM", x: 92, y: 29 },
-    { key: "lb", label: "LB", x: 8, y: 54 }, { key: "lcb", label: "CB", x: 34, y: 56 }, { key: "rcb", label: "CB", x: 66, y: 56 }, { key: "rb", label: "RB", x: 92, y: 54 },
-    { key: "gk", label: "GK", x: 50, y: 79 },
+    { key: "lm", label: "LM", x: 8, y: 27 }, { key: "lcm", label: "CM", x: 36, y: 29 }, { key: "rcm", label: "CM", x: 64, y: 29 }, { key: "rm", label: "RM", x: 92, y: 27 },
+    { key: "lb", label: "LB", x: 8, y: 51 }, { key: "lcb", label: "CB", x: 34, y: 53 }, { key: "rcb", label: "CB", x: 66, y: 53 }, { key: "rb", label: "RB", x: 92, y: 51 },
+    { key: "gk", label: "GK", x: 50, y: 76 },
   ],
   3421: [
-    { key: "st", label: "ST", x: 50, y: 8 }, { key: "lam", label: "AM", x: 38, y: 20 }, { key: "ram", label: "AM", x: 62, y: 20 },
-    { key: "lwb", label: "LWB", x: 8, y: 38 }, { key: "lcm", label: "CM", x: 38, y: 42 }, { key: "rcm", label: "CM", x: 62, y: 42 }, { key: "rwb", label: "RWB", x: 92, y: 38 },
-    { key: "lcb", label: "CB", x: 24, y: 58 }, { key: "cb", label: "CB", x: 50, y: 60 }, { key: "rcb", label: "CB", x: 76, y: 58 },
-    { key: "gk", label: "GK", x: 50, y: 79 },
+    { key: "st", label: "ST", x: 50, y: 8 }, { key: "lam", label: "AM", x: 38, y: 18 }, { key: "ram", label: "AM", x: 62, y: 18 },
+    { key: "lwb", label: "LWB", x: 8, y: 36 }, { key: "lcm", label: "CM", x: 38, y: 40 }, { key: "rcm", label: "CM", x: 62, y: 40 }, { key: "rwb", label: "RWB", x: 92, y: 36 },
+    { key: "lcb", label: "CB", x: 24, y: 55 }, { key: "cb", label: "CB", x: 50, y: 57 }, { key: "rcb", label: "CB", x: 76, y: 55 },
+    { key: "gk", label: "GK", x: 50, y: 76 },
   ],
 };
 
@@ -68,7 +66,7 @@ const reservesSlots = Array.from({ length: 8 }, (_, i) => ({ key: `res-${i + 1}`
 
 const flagMeta = {
   USA: { png: "184", fallback: "usa" }, Nigeria: { png: "124", fallback: "nigeria" }, Jamaica: { png: "76", fallback: "jamaica" }, Mexico: { png: "110", fallback: "mexico" }, Germany: { png: "40", fallback: "germany" }, Portugal: { png: "136", fallback: "portugal" }, Argentina: { png: "9", fallback: "argentina" }, Italy: { png: "75", fallback: "italy" }, Canada: { png: "80", fallback: "canada" }, Spain: { png: "157", fallback: "spain" }, Ghana: { png: "54", fallback: "ghana" }, England: { png: "189", fallback: "england" }, France: { png: "50", fallback: "france" }, Norway: { png: "125", fallback: "norway" },
-  Croatia: { fallback: "croatia" }, Liberia: { fallback: "liberia" }, Japan: { fallback: "japan" }, Netherlands: { fallback: "netherlands" }, Suriname: { fallback: "suriname" }, Lithuania: { fallback: "lithuania" }, Denmark: { fallback: "denmark" }, Peru: { fallback: "peru" }, Poland: { fallback: "poland" },
+  Croatia: { fallback: "croatia" }, Liberia: { fallback: "liberia" }, Japan: { fallback: "japan" }, Netherlands: { fallback: "netherlands" }, Suriname: { fallback: "suriname" }, Lithuania: { fallback: "lithuania" }, Denmark: { fallback: "denmark" }, Peru: { fallback: "peru" }, Poland: { fallback: "poland" }, Brazil: { fallback: "brazil" }, Ireland: { fallback: "ireland" },
 };
 
 const pitchEl = document.getElementById("pitch");
@@ -77,6 +75,7 @@ const reservesColumnEl = document.getElementById("reserves-column");
 const formationSelectEl = document.getElementById("formation-select");
 const clearBtn = document.getElementById("clear-btn");
 const cardTemplate = document.getElementById("player-card-template");
+const squadBoardEl = document.getElementById("squad-board");
 
 const modal = document.getElementById("player-modal");
 const modalTitle = document.getElementById("modal-title");
@@ -88,6 +87,7 @@ const slotSearchTitle = document.getElementById("slot-search-title");
 const slotSearchInput = document.getElementById("slot-search-input");
 const slotSearchResults = document.getElementById("slot-search-results");
 const slotSearchClose = document.getElementById("slot-search-close");
+
 const rosterNameInput = document.getElementById("roster-name");
 const shareBtn = document.getElementById("share-btn");
 const shareModal = document.getElementById("share-modal");
@@ -96,12 +96,15 @@ const shareStatus = document.getElementById("share-status");
 const saveImageBtn = document.getElementById("save-image-btn");
 const emailImageBtn = document.getElementById("email-image-btn");
 const textImageBtn = document.getElementById("text-image-btn");
+const xImageBtn = document.getElementById("x-image-btn");
 
 const lineup = new Map();
 let activeSearchSlot = null;
+let shareBlob = null;
 
-const getPrimaryPhoto = (p) => p.explicitPhoto || `https://img.a.transfermarkt.technology/portrait/header/${p.transfermarktId}.jpg`;
 const getPhotoFallback = () => "./playerface.jpg";
+const getPrimaryPhoto = (p) => p.explicitPhoto;
+const getRosterFileName = () => `${(rosterNameInput.value || "usmnt-roster").trim().replace(/[^a-z0-9-_]+/gi, "-").toLowerCase() || "usmnt-roster"}.png`;
 
 const createFlag = (country) => {
   const meta = flagMeta[country] || { fallback: "usa" };
@@ -126,7 +129,7 @@ const buildFlagRow = (container, player) => {
 };
 
 const openInfoModal = (player) => {
-  modalTitle.textContent = player.fullName || player.displayName;
+  modalTitle.textContent = player.fullName;
   modalBody.innerHTML = `
     <div class="modal-player">
       <img id="modal-face" src="${getPrimaryPhoto(player)}" alt="${player.fullName}" class="modal-player-face" />
@@ -134,9 +137,8 @@ const openInfoModal = (player) => {
         <li><strong>Age:</strong> ${player.age}</li>
         <li><strong>Club:</strong> ${player.club} <span id="club-flag-wrap"></span></li>
         <li><strong>Place of birth:</strong> ${player.birthCity} <span id="birth-flag-wrap"></span></li>
-        <li><strong>Season appearances:</strong> ${player.seasonStats.appearances}</li>
-        <li><strong>Season goals:</strong> ${player.seasonStats.goals}</li>
-        <li><strong>Season assists:</strong> ${player.seasonStats.assists}</li>
+        <li><strong>Dominant foot:</strong> ${player.dominantFoot}</li>
+        <li><strong>Other positions:</strong> ${player.otherPositions.length ? player.otherPositions.join(", ") : "—"}</li>
         <li><strong>Eligible countries:</strong> ${player.eligibleCountries.join(", ")}</li>
       </ul>
     </div>`;
@@ -154,25 +156,21 @@ const removeFromLineup = (playerId) => {
   renderAllSlots();
 };
 
-const createPlayerCard = (player, filledSlot = false) => {
+const createPlayerCard = (player, { filledSlot = false, compact = false } = {}) => {
   const card = cardTemplate.content.firstElementChild.cloneNode(true);
-  card.dataset.playerId = player.id;
+  if (compact) card.classList.add("compact-card");
+
   const face = card.querySelector(".player-face");
   face.src = getPrimaryPhoto(player);
   face.alt = player.fullName;
   face.onerror = () => { face.src = getPhotoFallback(); };
+
   card.querySelector(".player-last-name").textContent = player.displayName;
   card.querySelector(".player-position").textContent = player.position;
   buildFlagRow(card.querySelector(".flag-row"), player);
 
-  card.querySelector(".info-btn").addEventListener("click", (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    openInfoModal(player);
-  });
-
+  const removeBtn = card.querySelector(".remove-btn");
   if (filledSlot) {
-    const removeBtn = card.querySelector(".remove-btn");
     removeBtn.classList.add("show");
     removeBtn.addEventListener("click", (e) => {
       e.preventDefault();
@@ -181,33 +179,39 @@ const createPlayerCard = (player, filledSlot = false) => {
     });
   }
 
+  card.querySelector(".info-btn").addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    openInfoModal(player);
+  });
+
   card.addEventListener("dragstart", (e) => {
     e.dataTransfer.setData("text/player-id", player.id);
     e.dataTransfer.effectAllowed = "move";
   });
+
   return card;
 };
 
-const getUsedIds = () => new Set(lineup.values());
-
 const renderSearchResults = () => {
   const q = slotSearchInput.value.trim().toLowerCase();
+  const used = new Set(lineup.values());
   slotSearchResults.innerHTML = "";
-  const used = getUsedIds();
+
   players
     .filter((p) => !used.has(p.id))
     .filter((p) => `${p.fullName} ${p.displayName} ${p.position}`.toLowerCase().includes(q))
     .forEach((player) => {
-      const item = document.createElement("button");
-      item.type = "button";
-      item.className = "search-result";
-      item.append(createPlayerCard(player, false));
-      item.addEventListener("click", () => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "search-result";
+      button.append(createPlayerCard(player));
+      button.addEventListener("click", () => {
         if (activeSearchSlot) lineup.set(activeSearchSlot, player.id);
         slotSearchModal.close();
         renderAllSlots();
       });
-      slotSearchResults.append(item);
+      slotSearchResults.append(button);
     });
 };
 
@@ -220,19 +224,16 @@ const openSearchForSlot = (slotKey, label) => {
   slotSearchInput.focus();
 };
 
-const createSlotNode = (slot, isPitch = false) => {
+const createSlotNode = (slot, type = "pitch") => {
   const el = document.createElement("div");
-  el.className = `slot${isPitch ? " pitch-slot" : " side-slot"}`;
-  if (isPitch) {
+  el.className = `slot ${type === "pitch" ? "pitch-slot" : "side-slot"}`;
+  el.dataset.slotKey = slot.key;
+  if (type === "pitch") {
     el.style.left = `${slot.x}%`;
     el.style.top = `${slot.y}%`;
   }
-  el.dataset.slotKey = slot.key;
 
-  el.addEventListener("dragover", (e) => {
-    e.preventDefault();
-    el.classList.add("drop-target");
-  });
+  el.addEventListener("dragover", (e) => { e.preventDefault(); el.classList.add("drop-target"); });
   el.addEventListener("dragleave", () => el.classList.remove("drop-target"));
   el.addEventListener("drop", (e) => {
     e.preventDefault();
@@ -249,7 +250,7 @@ const createSlotNode = (slot, isPitch = false) => {
     const player = players.find((p) => p.id === playerId);
     if (player) {
       el.classList.add("filled");
-      el.append(createPlayerCard(player, true));
+      el.append(createPlayerCard(player, { filledSlot: true, compact: type !== "pitch" }));
     }
   } else {
     const label = document.createElement("span");
@@ -261,51 +262,48 @@ const createSlotNode = (slot, isPitch = false) => {
   return el;
 };
 
-
-const getRosterFileName = () => {
-  const base = (rosterNameInput.value || "usmnt-roster").trim().replace(/[^a-z0-9-_]+/gi, "-").toLowerCase();
-  return `${base || "usmnt-roster"}.png`;
-};
-
 const captureBoardBlob = async () => {
-  const board = document.querySelector(".squad-board");
-  if (!window.html2canvas || !board) throw new Error("Capture utility unavailable");
-  const canvas = await window.html2canvas(board, { backgroundColor: "#4b210c", useCORS: true, scale: 2 });
+  if (!window.html2canvas) throw new Error("Capture utility unavailable");
+  const isMobile = window.matchMedia("(max-width: 1100px)").matches;
+  let target = squadBoardEl;
+  let cleanup = null;
+
+  if (isMobile) {
+    const clone = squadBoardEl.cloneNode(true);
+    clone.classList.add("force-export-layout");
+    clone.style.width = "1100px";
+    const holder = document.createElement("div");
+    holder.style.position = "fixed";
+    holder.style.left = "-99999px";
+    holder.style.top = "0";
+    holder.append(clone);
+    document.body.append(holder);
+    target = clone;
+    cleanup = () => holder.remove();
+  }
+
+  const canvas = await window.html2canvas(target, { backgroundColor: "#4b210c", useCORS: true, scale: 2 });
+  cleanup?.();
   return await new Promise((resolve) => canvas.toBlob(resolve, "image/png", 1));
 };
 
 const openShareModal = async () => {
-  shareStatus.textContent = "Generating image...";
   shareModal.showModal();
+  shareStatus.textContent = "Generating image...";
+  shareBlob = null;
   try {
-    const blob = await captureBoardBlob();
-    if (!blob) throw new Error("Could not create image blob");
-    const file = new File([blob], getRosterFileName(), { type: "image/png" });
-    const objectUrl = URL.createObjectURL(blob);
-
-    const saveImage = () => {
-      const a = document.createElement("a");
-      a.href = objectUrl;
-      a.download = file.name;
-      a.click();
-    };
-
-    const shareWithHint = async (hint) => {
-      if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
-        await navigator.share({ title: rosterNameInput.value || "USMNT Roster", text: hint, files: [file] });
-      } else {
-        window.open(hint, "_blank");
-      }
-    };
-
-    saveImageBtn.onclick = saveImage;
-    emailImageBtn.onclick = () => shareWithHint(`mailto:?subject=${encodeURIComponent(rosterNameInput.value || "USMNT Roster")}&body=${encodeURIComponent("Roster image is ready. If attachment is not supported, please use Save Image first.")}`);
-    textImageBtn.onclick = () => shareWithHint(`sms:?body=${encodeURIComponent("USMNT roster image ready. If image is not attached automatically, use Save Image first.")}`);
-
-    shareStatus.textContent = "Choose Save, Email, or Text.";
+    shareBlob = await captureBoardBlob();
+    if (!shareBlob) throw new Error("Could not create image");
+    shareStatus.textContent = "Choose Save, Email, Text, or X.";
   } catch (err) {
     shareStatus.textContent = `Could not generate image: ${err.message}`;
   }
+};
+
+const withShareFile = async (cb) => {
+  if (!shareBlob) return;
+  const file = new File([shareBlob], getRosterFileName(), { type: "image/png" });
+  await cb(file);
 };
 
 const renderAllSlots = () => {
@@ -313,24 +311,42 @@ const renderAllSlots = () => {
   subsColumnEl.innerHTML = "";
   reservesColumnEl.innerHTML = "";
 
-  formationSlots[formationSelectEl.value].forEach((slot) => pitchEl.append(createSlotNode(slot, true)));
-  subsSlots.forEach((slot) => subsColumnEl.append(createSlotNode(slot)));
-  reservesSlots.forEach((slot) => reservesColumnEl.append(createSlotNode(slot)));
+  formationSlots[formationSelectEl.value].forEach((slot) => pitchEl.append(createSlotNode(slot, "pitch")));
+  subsSlots.forEach((slot) => subsColumnEl.append(createSlotNode(slot, "subs")));
+  reservesSlots.forEach((slot) => reservesColumnEl.append(createSlotNode(slot, "reserves")));
 };
 
-formationSelectEl.addEventListener("change", () => {
-  lineup.clear();
-  renderAllSlots();
-});
-clearBtn.addEventListener("click", () => {
-  lineup.clear();
-  renderAllSlots();
-});
-
+formationSelectEl.addEventListener("change", () => { lineup.clear(); renderAllSlots(); });
+clearBtn.addEventListener("click", () => { lineup.clear(); renderAllSlots(); });
 slotSearchInput.addEventListener("input", renderSearchResults);
 slotSearchClose.addEventListener("click", () => slotSearchModal.close());
 modalCloseBtn.addEventListener("click", () => modal.close());
 shareBtn.addEventListener("click", openShareModal);
 shareClose.addEventListener("click", () => shareModal.close());
+
+saveImageBtn.addEventListener("click", () => withShareFile(async (file) => {
+  const url = URL.createObjectURL(file);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = file.name;
+  a.click();
+  URL.revokeObjectURL(url);
+}));
+
+emailImageBtn.addEventListener("click", () => {
+  const subject = encodeURIComponent(rosterNameInput.value || "USMNT Roster");
+  const body = encodeURIComponent("Roster image generated. If attachment is not supported by your browser, save the image first and attach manually.");
+  window.open(`mailto:?subject=${subject}&body=${body}`, "_blank");
+});
+
+textImageBtn.addEventListener("click", () => {
+  const body = encodeURIComponent("USMNT roster image generated. Save the image and attach it to this message.");
+  window.open(`sms:?body=${body}`, "_blank");
+});
+
+xImageBtn.addEventListener("click", () => {
+  const text = encodeURIComponent("Check out the squad I built with the Joshua Report's USMNT Database");
+  window.open(`https://twitter.com/intent/tweet?text=${text}`, "_blank");
+});
 
 renderAllSlots();
