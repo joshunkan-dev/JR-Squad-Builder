@@ -3,14 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Joshua Report's USMNT Database</title>
+    <title>Joshua Reports USMNT Database</title>
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <header class="topbar">
-      <h1>Joshua Report's USMNT Database</h1>
+      <h1>2026 USMNT Database</h1>
       <p>Select a vacant spot in the squad to search and secure a player in the roster.</p>
+      <small>last updated 3/3/2026</small>
     </header>
 
     <main class="pitch-wrap" aria-label="Formation board">
@@ -23,7 +24,7 @@
         </select>
         <button id="clear-btn" type="button">Clear Lineup</button>
         <input id="roster-name" type="text" placeholder="Roster name" />
-        <button id="share-btn" type="button" aria-label="Share roster" title="Share roster">↗</button>
+        <button id="share-btn" type="button" aria-label="Share roster" title="Share" data-tooltip="Share">↗</button>
       </div>
 
       <section class="squad-board" id="squad-board">
@@ -84,6 +85,7 @@
         <button id="email-image-btn" type="button">Email Image</button>
         <button id="text-image-btn" type="button">Text Image</button>
         <button id="x-image-btn" type="button">Share to X</button>
+        <button id="instagram-image-btn" type="button">Share to Instagram</button>
       </div>
     </dialog>
 
