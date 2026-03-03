@@ -19,6 +19,7 @@ body {
 .topbar { padding: 1rem 1.25rem; }
 .topbar h1 { margin: 0; font-size: 1.5rem; }
 .topbar p { margin: 0.35rem 0 0; color: var(--muted); }
+.topbar small { display: block; margin-top: 0.25rem; color: rgba(255, 215, 189, 0.85); font-size: 0.78rem; }
 
 .pitch-wrap {
   margin: 0 1rem 1rem;
@@ -38,7 +39,8 @@ body {
 }
 #clear-btn { background: rgba(217, 89, 57, 0.35); }
 #roster-name { min-width: 160px; }
-#share-btn { width: 40px; font-size: 1.05rem; font-weight: 800; }
+#share-btn { width: 40px; font-size: 1.05rem; font-weight: 800; position: relative; }
+#share-btn[data-tooltip]:hover::after { content: attr(data-tooltip); position: absolute; top: calc(100% + 6px); left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.8); color: #fff; font-size: 0.68rem; padding: 0.2rem 0.35rem; border-radius: 4px; white-space: nowrap; }
 
 .squad-board {
   display: grid;
@@ -58,9 +60,7 @@ body {
   border: 2px solid var(--line);
   overflow: hidden;
 }
-.pitch::before, .pitch::after { content: ""; position: absolute; inset: 0; pointer-events: none; }
-.pitch::before { border: 2px solid var(--line); inset: 1rem; border-radius: 6px; }
-.pitch::after { left: 50%; width: 2px; background: var(--line); transform: translateX(-50%); }
+.pitch::before { content: ""; position: absolute; inset: 1rem; border: 2px solid var(--line); border-radius: 6px; pointer-events: none; }
 
 .slot {
   border: 1px dashed rgba(255,255,255,0.45);
@@ -100,6 +100,18 @@ body {
 .player-last-name { margin: 0; font-size: 0.69rem; line-height: 1.1; }
 .player-position { font-size: 0.62rem; color: var(--muted); font-weight: 700; }
 .player-face { width: 100%; height: 56px; object-fit: cover; border-radius: 7px; border: 1px solid rgba(255,255,255,0.2); }
+.player-face-fallback {
+  width: 100%;
+  height: 56px;
+  border-radius: 7px;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(22, 10, 4, 0.65);
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.92);
+}
 .player-foot { display: flex; align-items: center; justify-content: space-between; gap: 0.3rem; }
 
 .remove-btn {
