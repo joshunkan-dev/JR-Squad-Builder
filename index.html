@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Joshua Report's USMNT Database</title>
     <link rel="stylesheet" href="styles.css" />
-    <link rel="icon" type="image/png" href="flags/184.png">
   </head>
   <body>
     <header class="topbar">
@@ -26,15 +25,15 @@
         <button id="share-btn" type="button" aria-label="Share roster" title="Share roster">↗</button>
       </div>
 
-      <section class="squad-board">
-        <aside class="side-column" aria-label="Substitutes">
+      <section class="squad-board" id="squad-board">
+        <aside class="side-column side-column-subs" aria-label="Substitutes">
           <h2>Subs</h2>
           <div id="subs-column" class="side-slots"></div>
         </aside>
 
         <div id="pitch" class="pitch" role="grid" aria-label="Soccer pitch"></div>
 
-        <aside class="side-column" aria-label="Reserves">
+        <aside class="side-column side-column-reserves" aria-label="Reserves">
           <h2>Reserves</h2>
           <div id="reserves-column" class="side-slots"></div>
         </aside>
@@ -44,11 +43,11 @@
     <template id="player-card-template">
       <article class="player-card" draggable="true">
         <button class="remove-btn" type="button" aria-label="Remove from lineup">×</button>
-        <img class="player-face" alt="" loading="lazy" />
-        <div class="player-meta">
+        <div class="player-meta player-meta-top">
           <h3 class="player-last-name"></h3>
           <span class="player-position"></span>
         </div>
+        <img class="player-face" alt="" loading="lazy" />
         <div class="player-foot">
           <div class="flag-row" aria-label="Eligible flags"></div>
           <button class="info-btn" type="button" aria-label="Player info"><em>i</em></button>
@@ -73,7 +72,6 @@
       <div id="slot-search-results" class="search-results"></div>
     </dialog>
 
-
     <dialog id="share-modal" class="share-modal">
       <div class="modal-head">
         <h3>Share Roster Image</h3>
@@ -84,6 +82,7 @@
         <button id="save-image-btn" type="button">Save Image</button>
         <button id="email-image-btn" type="button">Email Image</button>
         <button id="text-image-btn" type="button">Text Image</button>
+        <button id="x-image-btn" type="button">Share to X</button>
       </div>
     </dialog>
 
