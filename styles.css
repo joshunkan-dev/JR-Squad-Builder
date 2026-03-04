@@ -216,3 +216,155 @@ body {
   .side-slot { min-height: 64px; }
   .pitch-slot { width: 86px; min-height: 104px; }
 }
+
+.db-topbar p {
+  margin-top: 0.2rem;
+}
+
+.db-nav {
+  display: flex;
+  gap: 0.55rem;
+  margin-top: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.db-nav a {
+  color: var(--text);
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 999px;
+  padding: 0.28rem 0.62rem;
+  background: rgba(112, 55, 25, 0.8);
+  font-size: 0.83rem;
+}
+
+.db-layout {
+  display: grid;
+  grid-template-columns: 270px 1fr;
+  gap: 0.9rem;
+  margin: 0 1rem 1rem;
+}
+
+.db-filters,
+.db-results-wrap,
+.about-card {
+  background: rgba(39, 16, 8, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 14px;
+  padding: 0.85rem;
+}
+
+.db-filters {
+  display: grid;
+  gap: 0.55rem;
+  align-content: start;
+}
+
+.db-filters h2,
+.db-results-head h2 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.db-filters label {
+  display: grid;
+  gap: 0.2rem;
+  font-size: 0.84rem;
+  color: var(--muted);
+}
+
+.db-filters input,
+.db-filters select,
+.db-filters button {
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: var(--panel-soft);
+  color: var(--text);
+  padding: 0.45rem 0.55rem;
+}
+
+.db-results-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.6rem;
+}
+
+.db-results {
+  display: grid;
+  gap: 0.42rem;
+}
+
+.db-player-row {
+  display: grid;
+  grid-template-columns: 54px 1fr auto;
+  gap: 0.55rem;
+  align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  background: rgba(86, 39, 18, 0.78);
+  padding: 0.36rem;
+}
+
+.db-player-face {
+  width: 54px;
+  height: 54px;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.db-player-main h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.db-primary-position {
+  margin: 0.1rem 0;
+  color: #ffe6ce;
+  font-size: 0.78rem;
+}
+
+.db-player-main p {
+  margin: 0.2rem 0 0;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.pagination {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.3rem;
+  margin-top: 0.75rem;
+}
+
+.page-btn {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(112, 55, 25, 0.85);
+  color: var(--text);
+  min-width: 30px;
+  height: 28px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.page-btn.active {
+  background: #16a4da;
+  border-color: #16a4da;
+}
+
+.about-card {
+  margin: 0 1rem 1rem;
+  max-width: 920px;
+}
+
+.about-card .small-note {
+  font-size: 0.82rem;
+  color: rgba(255, 235, 220, 0.86);
+}
+
+@media (max-width: 900px) {
+  .db-layout {
+    grid-template-columns: 1fr;
+  }
+}
