@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Joshua Reports USMNT Database</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <h1>2026 USMNT Squad Builder</h1>
+      <nav class="db-nav" aria-label="Primary navigation"><a href="index.html">Database</a><a href="about.html">About</a></nav>
+      <p>Select a vacant spot in the squad to search and secure a player in the roster.</p>
+      <small>last updated 3/3/2026</small>
+    </header>
+
+    <main class="pitch-wrap" aria-label="Formation board">
+      <div class="board-toolbar">
+        <label for="formation-select">Formation</label>
+        <select id="formation-select">
+          <option value="433" selected>4-3-3</option>
+          <option value="442">4-4-2</option>
+          <option value="3421">3-4-2-1</option>
+        </select>
+        <button id="clear-btn" type="button">Clear Lineup</button>
+        <input id="roster-name" type="text" placeholder="Roster name" />
+        <button id="share-btn" type="button" aria-label="Share roster" title="Share" data-tooltip="Share">↗</button>
+      </div>
+
+      <section class="squad-board" id="squad-board">
+        <aside class="side-column side-column-subs" aria-label="Substitutes">
+          <h2>Subs</h2>
+          <div id="subs-column" class="side-slots"></div>
+        </aside>
+
+        <div id="pitch" class="pitch" role="grid" aria-label="Soccer pitch"></div>
+
+        <aside class="side-column side-column-reserves" aria-label="Reserves">
+          <h2>Reserves</h2>
+          <div id="reserves-column" class="side-slots"></div>
+        </aside>
+      </section>
+    </main>
+
+    <template id="player-card-template">
+      <article class="player-card" draggable="true">
+        <button class="remove-btn" type="button" aria-label="Remove from lineup">×</button>
+        <div class="player-meta player-meta-top">
+          <h3 class="player-last-name"></h3>
+          <span class="player-position"></span>
+        </div>
+        <img class="player-face" alt="" loading="lazy" />
+        <div class="player-foot">
+          <div class="flag-row" aria-label="Eligible flags"></div>
+          <button class="info-btn" type="button" aria-label="Player info"><em>i</em></button>
+        </div>
+      </article>
+    </template>
+
+    <dialog id="player-modal" class="player-modal">
+      <div class="modal-head">
+        <h3 id="modal-title"></h3>
+        <button id="modal-close" type="button" aria-label="Close modal">×</button>
+      </div>
+      <div id="modal-body"></div>
+    </dialog>
+
+    <dialog id="slot-search-modal" class="search-modal">
+      <div class="modal-head">
+        <h3 id="slot-search-title">Select Player</h3>
+        <button id="slot-search-close" type="button" aria-label="Close search">×</button>
+      </div>
+      <input id="slot-search-input" type="search" placeholder="Search by name or position" />
+      <div id="slot-search-results" class="search-results"></div>
+    </dialog>
+
+    <dialog id="share-modal" class="share-modal">
+      <div class="modal-head">
+        <h3>Share Roster Image</h3>
+        <button id="share-close" type="button" aria-label="Close share">×</button>
+      </div>
+      <p id="share-status">Choose how you want to share this image.</p>
+      <div class="share-actions">
+        <button id="save-image-btn" type="button">Save Image</button>
+        <button id="email-image-btn" type="button">Email Image</button>
+        <button id="text-image-btn" type="button">Text Image</button>
+        <button id="x-image-btn" type="button">Share to X</button>
+        <button id="instagram-image-btn" type="button">Share to Instagram</button>
+      </div>
+    </dialog>
+
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
