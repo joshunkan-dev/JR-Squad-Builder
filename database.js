@@ -4,7 +4,7 @@ const PAGE_SIZE = 12;
 let currentPage = 1;
 
 const positionBuckets = {
-  ST: ["ST"],
+  striker: ["ST"],
   winger: ["LW", "LWB", "LM", "RM", "RWB", "RW"],
   "center-mid": ["CM", "CAM", "CDM"],
   fullback: ["LB", "RB", "LWB", "RWB"],
