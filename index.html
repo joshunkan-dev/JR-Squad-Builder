@@ -8,54 +8,72 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <header class="topbar">
+    <header class="topbar db-topbar">
       <h1>2026 USMNT Database</h1>
-      <p>Select a vacant spot in the squad to search and secure a player in the roster.</p>
       <small>last updated 3/3/2026</small>
+      <p>Search and filter the USMNT player pool.</p>
+      <nav class="db-nav" aria-label="Primary navigation">
+        <a href="squadBuilder.html">Squad Builder</a>
+        <a href="about.html">About</a>
+      </nav>
     </header>
 
-    <main class="pitch-wrap" aria-label="Formation board">
-      <div class="board-toolbar">
-        <label for="formation-select">Formation</label>
-        <select id="formation-select">
-          <option value="433" selected>4-3-3</option>
-          <option value="442">4-4-2</option>
-          <option value="3421">3-4-2-1</option>
-        </select>
-        <button id="clear-btn" type="button">Clear Lineup</button>
-        <input id="roster-name" type="text" placeholder="Roster name" />
-        <button id="share-btn" type="button" aria-label="Share roster" title="Share" data-tooltip="Share">↗</button>
-      </div>
+    <main class="db-layout">
+      <aside class="db-filters">
+        <h2>Search Filters</h2>
 
-      <section class="squad-board" id="squad-board">
-        <aside class="side-column side-column-subs" aria-label="Substitutes">
-          <h2>Subs</h2>
-          <div id="subs-column" class="side-slots"></div>
-        </aside>
+        <label>Player name
+          <input id="filter-name" type="search" placeholder="Type a player name" />
+        </label>
 
-        <div id="pitch" class="pitch" role="grid" aria-label="Soccer pitch"></div>
+        <label>Position
+          <select id="filter-position">
+            <option value="">Any</option>
+            <option value="ST">ST</option>
+            <option value="winger">Winger</option>
+            <option value="center-mid">Center Mid</option>
+            <option value="fullback">Fullback</option>
+            <option value="center-back">Center Back</option>
+            <option value="GK">GK</option>
+          </select>
+        </label>
 
-        <aside class="side-column side-column-reserves" aria-label="Reserves">
-          <h2>Reserves</h2>
-          <div id="reserves-column" class="side-slots"></div>
-        </aside>
+        <label>Age min
+          <input id="filter-age-min" type="number" min="15" max="45" />
+        </label>
+
+        <label>Age max
+          <input id="filter-age-max" type="number" min="15" max="45" />
+        </label>
+
+        <label>Club country
+          <select id="filter-club-country"></select>
+        </label>
+
+        <label>Eligible country
+          <select id="filter-eligible-country"></select>
+        </label>
+
+        <label>Dual national filter
+          <select id="filter-dual">
+            <option value="all">All players</option>
+            <option value="uncapped">Uncapped dual nationals only</option>
+            <option value="dual">All dual nationals</option>
+          </select>
+        </label>
+
+        <button id="filter-submit" type="button">Submit</button>
+      </aside>
+
+      <section class="db-results-wrap">
+        <div class="db-results-head">
+          <h2>USMNT Player Database</h2>
+          <span id="result-count"></span>
+        </div>
+        <div id="db-results" class="db-results"></div>
+        <div id="pagination" class="pagination"></div>
       </section>
     </main>
-
-    <template id="player-card-template">
-      <article class="player-card" draggable="true">
-        <button class="remove-btn" type="button" aria-label="Remove from lineup">×</button>
-        <div class="player-meta player-meta-top">
-          <h3 class="player-last-name"></h3>
-          <span class="player-position"></span>
-        </div>
-        <img class="player-face" alt="" loading="lazy" />
-        <div class="player-foot">
-          <div class="flag-row" aria-label="Eligible flags"></div>
-          <button class="info-btn" type="button" aria-label="Player info"><em>i</em></button>
-        </div>
-      </article>
-    </template>
 
     <dialog id="player-modal" class="player-modal">
       <div class="modal-head">
@@ -65,31 +83,7 @@
       <div id="modal-body"></div>
     </dialog>
 
-    <dialog id="slot-search-modal" class="search-modal">
-      <div class="modal-head">
-        <h3 id="slot-search-title">Select Player</h3>
-        <button id="slot-search-close" type="button" aria-label="Close search">×</button>
-      </div>
-      <input id="slot-search-input" type="search" placeholder="Search by name or position" />
-      <div id="slot-search-results" class="search-results"></div>
-    </dialog>
-
-    <dialog id="share-modal" class="share-modal">
-      <div class="modal-head">
-        <h3>Share Roster Image</h3>
-        <button id="share-close" type="button" aria-label="Close share">×</button>
-      </div>
-      <p id="share-status">Choose how you want to share this image.</p>
-      <div class="share-actions">
-        <button id="save-image-btn" type="button">Save Image</button>
-        <button id="email-image-btn" type="button">Email Image</button>
-        <button id="text-image-btn" type="button">Text Image</button>
-        <button id="x-image-btn" type="button">Share to X</button>
-        <button id="instagram-image-btn" type="button">Share to Instagram</button>
-      </div>
-    </dialog>
-
-    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
-    <script src="app.js"></script>
+    <script src="data.js"></script>
+    <script src="database.js"></script>
   </body>
 </html>
