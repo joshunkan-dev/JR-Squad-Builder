@@ -8,15 +8,30 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <div class="site-bg" aria-hidden="true">
+      <div class="gradient-background">
+        <div class="gradient-sphere sphere-1"></div>
+        <div class="gradient-sphere sphere-2"></div>
+        <div class="gradient-sphere sphere-3"></div>
+        <div class="grid-overlay"></div>
+        <div class="glow"></div>
+        <div class="noise-overlay"></div>
+      </div>
+      <div class="particles-container" id="particles-container"></div>
+    </div>
     <header class="topbar db-topbar">
+      <a href="index.html" class="jr-logo" aria-label="Go to database">JR</a>
       <h1>2026 USMNT Database</h1>
-      <small>last updated 3/3/2026</small>
+      <small>last updated 3/5/2026</small>
       <p>Search and filter the USMNT player pool.</p>
       <nav class="db-nav" aria-label="Primary navigation">
         <a href="squadBuilder.html">Squad Builder</a>
         <a href="about.html">About</a>
-        <a href="index.html">Reset</a>
       </nav>
+      <div class="header-search-wrap">
+        <input id="quick-player-search" type="search" placeholder="Quick player lookup" autocomplete="off" />
+        <div id="quick-search-dropdown" class="quick-search-dropdown"></div>
+      </div>
     </header>
 
     <main class="db-layout">
@@ -30,7 +45,7 @@
         <label>Position
           <select id="filter-position">
             <option value="">Any</option>
-            <option value="ST">ST</option>
+            <option value="ST">Striker</option>
             <option value="winger">Winger</option>
             <option value="center-mid">Center Mid</option>
             <option value="fullback">Fullback</option>
@@ -86,5 +101,6 @@
 
     <script src="data.js"></script>
     <script src="database.js"></script>
+      <script src="effects.js"></script>
   </body>
 </html>
