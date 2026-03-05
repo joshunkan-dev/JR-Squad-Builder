@@ -4,7 +4,7 @@ const PAGE_SIZE = 12;
 let currentPage = 1;
 
 const positionBuckets = {
-  striker: ["ST"],
+  ST: ["ST"],
   winger: ["LW", "LWB", "LM", "RM", "RWB", "RW"],
   "center-mid": ["CM", "CAM", "CDM"],
   fullback: ["LB", "RB", "LWB", "RWB"],
@@ -28,9 +28,25 @@ const submitBtn = document.getElementById("filter-submit");
 const resultsEl = document.getElementById("db-results");
 const resultCountEl = document.getElementById("result-count");
 const paginationEl = document.getElementById("pagination");
+const quickSearchInput = document.getElementById("quick-player-search");
+const quickSearchDropdown = document.getElementById("quick-search-dropdown");
 
 const getPhotoFallback = () => "./playerface.jpg";
 const proxyPhoto = (url) => `https://images.weserv.nl/?url=${encodeURIComponent(url.replace(/^https?:\/\//, ""))}`;
+
+const getLiveAge = (player) => {
+  const dob = player.dateOfBirth || player.birthDate;
+  if (!dob) return player.age;
+  const born = new Date(dob);
+  if (Number.isNaN(born.getTime())) return player.age;
+  const today = new Date();
+  let age = today.getFullYear() - born.getFullYear();
+  const m = today.getMonth() - born.getMonth();
+  if (m < 0 || (m === 0 && today.getDate() < born.getDate())) age -= 1;
+  return age;
+};
+
+const getHeight = (player) => player.height || `5'11"`;
 
 const bindPlayerImage = (imgEl, url) => {
   if (!url) {
@@ -70,9 +86,10 @@ const openInfoModal = (player) => {
     <div class="modal-player">
       <img id="modal-face" src="${player.explicitPhoto}" alt="${player.fullName}" class="modal-player-face" />
       <ul>
-        <li><strong>Age:</strong> ${player.age}</li>
+        <li><strong>Age:</strong> ${getLiveAge(player)}</li>
         <li><strong>Club:</strong> ${player.club} <span id="club-flag-wrap"></span></li>
         <li><strong>Place of birth:</strong> ${player.birthCity} <span id="birth-flag-wrap"></span></li>
+        <li><strong>Height:</strong> ${getHeight(player)}</li>
         <li><strong>Dominant foot:</strong> ${player.dominantFoot}</li>
         <li><strong>Other positions:</strong> ${player.otherPositions.length ? player.otherPositions.join(", ") : "—"}</li>
         <li><strong>Eligible countries:</strong> ${player.eligibleCountries.join(", ")}</li>
@@ -121,8 +138,8 @@ const getFilteredPlayers = () => {
     const passDual = dualFilter === "all" || (dualFilter === "dual" && isDual) || (dualFilter === "uncapped" && p.showDualFlagsOnCard);
     return (`${p.fullName} ${p.displayName}`.toLowerCase().includes(q)
       && positionMatches(p, position)
-      && p.age >= ageMin
-      && p.age <= ageMax
+      && getLiveAge(p) >= ageMin
+      && getLiveAge(p) <= ageMax
       && clubCountryMatches(p, clubCountry)
       && (!eligibleCountry || p.eligibleCountries.includes(eligibleCountry))
       && passDual);
@@ -160,6 +177,37 @@ const renderPagination = (totalPages) => {
   if (currentPage < totalPages) {
     paginationEl.append(createPageButton("▶", currentPage + 1));
   }
+};
+
+
+const renderQuickSearch = () => {
+  if (!quickSearchInput || !quickSearchDropdown) return;
+  const q = quickSearchInput.value.trim().toLowerCase();
+  quickSearchDropdown.innerHTML = "";
+  if (q.length < 2) {
+    quickSearchDropdown.style.display = "none";
+    return;
+  }
+  const matches = players
+    .filter((p) => `${p.fullName} ${p.displayName}`.toLowerCase().includes(q))
+    .slice(0, 8);
+  if (!matches.length) {
+    quickSearchDropdown.style.display = "none";
+    return;
+  }
+  matches.forEach((player) => {
+    const item = document.createElement("button");
+    item.type = "button";
+    item.className = "quick-search-item";
+    item.textContent = `${player.displayName} · ${player.position}`;
+    item.addEventListener("click", () => {
+      quickSearchInput.value = player.displayName;
+      quickSearchDropdown.style.display = "none";
+      openInfoModal(player);
+    });
+    quickSearchDropdown.append(item);
+  });
+  quickSearchDropdown.style.display = "block";
 };
 
 const renderPlayers = () => {
@@ -217,6 +265,11 @@ submitBtn.addEventListener("click", () => {
   renderPlayers();
 });
 modalCloseBtn.addEventListener("click", () => modal.close());
+quickSearchInput?.addEventListener("input", renderQuickSearch);
+document.addEventListener("click", (e) => {
+  if (!quickSearchDropdown || !quickSearchInput) return;
+  if (!quickSearchDropdown.contains(e.target) && e.target !== quickSearchInput) quickSearchDropdown.style.display = "none";
+});
 
 buildCountryOptions();
 renderPlayers();
