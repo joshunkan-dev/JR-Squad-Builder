@@ -1,4 +1,4 @@
-const players = [
+const localPlayers = [
   { id: "pulisic", fullName: "Christian Pulisic", displayName: "Pulisic", position: "RW", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/315779-1691696699.jpg?lm=1", age: 27, club: "AC Milan", clubCountry: "Italy", birthCity: "Hershey", birthCountry: "USA", eligibleCountries: ["USA", "Croatia"], dominantFoot: "Right", otherPositions: ["LW", "CAM"], showDualFlagsOnCard: false },
   { id: "balogun", fullName: "Folarin Balogun", displayName: "Balogun", position: "ST", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/503770-1672838317.jpg?lm=1", age: 24, club: "AS Monaco", clubCountry: "France", birthCity: "New York", birthCountry: "USA", eligibleCountries: ["USA", "England", "Nigeria"], dominantFoot: "Right", otherPositions: ["CF"], showDualFlagsOnCard: false },
   { id: "weah", fullName: "Timothy Weah", displayName: "Weah", position: "RM", explicitPhoto: "https://img.a.transfermarkt.technology/portrait/header/370846-1692277669.jpg?lm=1", age: 26, club: "Olympique Marseille", clubCountry: "France", birthCity: "New York", birthCountry: "USA", eligibleCountries: ["USA", "Liberia", "Jamaica", "France"], dominantFoot: "Right", otherPositions: ["RWB", "LW", "ST"], showDualFlagsOnCard: false },
@@ -70,10 +70,14 @@ const formationSlots = {
 const subsSlots = Array.from({ length: 7 }, (_, i) => ({ key: `sub-${i + 1}`, label: `SUB ${i + 1}` }));
 const reservesSlots = Array.from({ length: 8 }, (_, i) => ({ key: `res-${i + 1}`, label: `RES ${i + 1}` }));
 
-const flagMeta = {
+const localFlagMeta = {
   USA: { png: "184", fallback: "usa" }, Nigeria: { png: "124", fallback: "nigeria" }, Jamaica: { png: "76", fallback: "jamaica" }, Mexico: { png: "110", fallback: "mexico" }, Germany: { png: "40", fallback: "germany" }, Portugal: { png: "136", fallback: "portugal" }, Argentina: { png: "9", fallback: "argentina" }, Italy: { png: "75", fallback: "italy" }, Canada: { png: "80", fallback: "canada" }, Spain: { png: "157", fallback: "spain" }, Ghana: { png: "54", fallback: "ghana" }, England: { png: "189", fallback: "england" }, France: { png: "50", fallback: "france" }, Norway: { png: "125", fallback: "norway" }, Denmark: { png: "39", fallback: "denmark" },
   Croatia: { fallback: "croatia" }, Liberia: { fallback: "liberia" }, Japan: { fallback: "japan" }, Netherlands: { fallback: "netherlands" }, Suriname: { fallback: "suriname" }, Lithuania: { fallback: "lithuania" }, Peru: { fallback: "peru" }, Poland: { fallback: "poland" }, Brazil: { fallback: "brazil" }, Ireland: { fallback: "ireland" }, Armenia: { fallback: "armenia" }, "El Salvador": { fallback: "elsalvador" },
 };
+
+
+const players = window.USMNT_DATA?.players || localPlayers;
+const flagMeta = window.USMNT_DATA?.flagMeta || localFlagMeta;
 
 const pitchEl = document.getElementById("pitch");
 const subsColumnEl = document.getElementById("subs-column");
@@ -114,6 +118,20 @@ const proxyPhoto = (url) => `https://images.weserv.nl/?url=${encodeURIComponent(
 const getPrimaryPhoto = (p) => p.explicitPhoto;
 const getRosterName = () => rosterNameInput.value.trim() || "My USMNT Squad";
 const getRosterFileName = () => `${getRosterName().replace(/[^a-z0-9-_]+/gi, "-").toLowerCase() || "usmnt-roster"}.png`;
+
+const getLiveAge = (player) => {
+  const dob = player.dateOfBirth || player.birthDate;
+  if (!dob) return player.age;
+  const born = new Date(dob);
+  if (Number.isNaN(born.getTime())) return player.age;
+  const today = new Date();
+  let age = today.getFullYear() - born.getFullYear();
+  const m = today.getMonth() - born.getMonth();
+  if (m < 0 || (m === 0 && today.getDate() < born.getDate())) age -= 1;
+  return age;
+};
+
+const getHeight = (player) => player.height || `5'11"`;
 
 const bindPlayerImage = (imgEl, url) => {
   const proxyUrl = proxyPhoto(url);
@@ -192,9 +210,10 @@ const openInfoModal = (player) => {
     <div class="modal-player">
       <img id="modal-face" src="${getPrimaryPhoto(player)}" alt="${player.fullName}" class="modal-player-face" />
       <ul>
-        <li><strong>Age:</strong> ${player.age}</li>
+        <li><strong>Age:</strong> ${getLiveAge(player)}</li>
         <li><strong>Club:</strong> ${player.club} <span id="club-flag-wrap"></span></li>
         <li><strong>Place of birth:</strong> ${player.birthCity} <span id="birth-flag-wrap"></span></li>
+        <li><strong>Height:</strong> ${getHeight(player)}</li>
         <li><strong>Dominant foot:</strong> ${player.dominantFoot}</li>
         <li><strong>Other positions:</strong> ${player.otherPositions.length ? player.otherPositions.join(", ") : "—"}</li>
         <li><strong>Eligible countries:</strong> ${player.eligibleCountries.join(", ")}</li>
