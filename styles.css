@@ -190,10 +190,16 @@ body {
 .about-card ul { margin: .6rem auto; display: inline-block; text-align: left; }
 .about-card .small-note { font-size: .82rem; }
 
+.featured-on { margin: 1rem 0; }
+.featured-on h2 { font-size: clamp(1.4rem,3vw,2rem); margin-bottom: .6rem; }
+.featured-logos { display: grid; grid-template-columns: repeat(2, minmax(140px, 1fr)); gap: .75rem; align-items: center; }
+.featured-logos img { width: 100%; max-height: 68px; object-fit: contain; background: rgba(255,255,255,.96); border-radius: 8px; padding: .35rem; }
+
+
 @media (max-width: 1100px) {
   .header-search-wrap { position: static; width: min(560px, 90vw); }
   .topbar { padding-top: 1rem; }
-  .jr-logo { position: static; transform: none; margin-bottom: .2rem; }
+  .jr-logo { left: 1rem; top: .75rem; }
   .db-topbar { padding-top: 1rem; }
   .db-layout { grid-template-columns: 1fr; }
   .squad-board { grid-template-columns:1fr; }
