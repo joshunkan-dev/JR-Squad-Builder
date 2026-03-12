@@ -210,6 +210,16 @@ const renderQuickSearch = () => {
   quickSearchDropdown.style.display = "block";
 };
 
+
+const openPlayerFromQuery = () => {
+  const params = new URLSearchParams(window.location.search);
+  const playerId = params.get("player");
+  if (!playerId) return;
+  const player = players.find((p) => p.id === playerId);
+  if (!player) return;
+  openInfoModal(player);
+};
+
 const renderPlayers = () => {
   const filtered = getFilteredPlayers();
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
@@ -273,3 +283,4 @@ document.addEventListener("click", (e) => {
 
 buildCountryOptions();
 renderPlayers();
+openPlayerFromQuery();
