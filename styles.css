@@ -45,7 +45,7 @@ body {
 .db-nav { display: flex; gap: .55rem; flex-wrap: wrap; justify-content: center; }
 .db-nav a { color: #fff; text-decoration: none; border: 1px solid rgba(255,255,255,.2); border-radius: 999px; padding: .34rem .72rem; background: rgba(13,16,27,.62); }
 .jr-logo {
-  position: absolute; top: .85rem; left: 1rem;
+  position: absolute; top: .85rem; left: 1.35rem;
   width: 84px; height: 84px; border-radius: 50%; text-decoration: none; color: #fff;
   display: grid; place-items: center; font-weight: 800; letter-spacing: 1px; font-size: 1.55rem;
   border: 2px solid rgba(255,255,255,.3); background: radial-gradient(circle, rgba(255,255,255,.15), rgba(255,255,255,.02));
@@ -199,7 +199,7 @@ body {
 @media (max-width: 1100px) {
   .header-search-wrap { position: static; width: min(560px, 90vw); }
   .topbar { padding-top: 1rem; }
-  .jr-logo { left: 1rem; top: .75rem; }
+  .jr-logo { left: 1.35rem; top: .75rem; }
   .db-topbar { padding-top: 1rem; }
   .db-layout { grid-template-columns: 1fr; }
   .squad-board { grid-template-columns:1fr; }
@@ -210,4 +210,55 @@ body {
   .side-column-reserves .side-slots { grid-template-columns:repeat(8,minmax(50px,1fr)); }
   .side-slot { min-height:64px; }
   .pitch-slot { width:86px; min-height:104px; }
+}
+
+
+.media-layout {
+  display: grid;
+  gap: .9rem;
+  padding: 1rem;
+}
+.publication-card {
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 12px;
+  background: rgba(9,14,26,.72);
+  padding: .9rem;
+  text-align: left;
+}
+.publication-card h2 { font-size: 1.1rem; margin-bottom: .3rem; }
+.publication-card h2 a { color: #fff; }
+.publication-meta { font-size: .82rem; color: var(--muted); margin-bottom: .4rem; }
+.related-player-link { display: inline-block; margin-top: .45rem; color: #8fd8ff; text-decoration: none; }
+.media-related-wrap { margin-top: .65rem; display: grid; gap: .45rem; justify-items: start; }
+.related-player-label { font-size: .8rem; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; }
+.media-related-card { width: 160px; }
+.reader-toggle {
+  margin-top: .6rem;
+  border: none;
+  border-radius: 999px;
+  padding: .45rem .8rem;
+  color: #fff;
+  background-image: var(--btn);
+  cursor: pointer;
+}
+.reader-content {
+  margin-top: .65rem;
+  border-top: 1px solid rgba(255,255,255,.16);
+  padding-top: .6rem;
+}
+.reader-controls { display: flex; flex-wrap: wrap; gap: .45rem; margin-bottom: .55rem; }
+.reader-controls button, .reader-controls select {
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,.2);
+  background: rgba(10,12,20,.78);
+  color: #fff;
+  padding: .35rem .55rem;
+}
+.reader-article {
+  white-space: pre-wrap;
+  line-height: 1.6;
+  color: var(--muted);
+  max-height: 360px;
+  overflow: auto;
+  padding-right: .4rem;
 }
