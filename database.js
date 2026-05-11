@@ -46,7 +46,10 @@ const getLiveAge = (player) => {
   return age;
 };
 
-const getHeight = (player) => player.height || `5'11"`;
+const getHeight = (player) => {
+  if (player.heightVerified && player.height) return player.height;
+  return "Pending source verification";
+};
 
 const bindPlayerImage = (imgEl, url) => {
   if (!url) {
