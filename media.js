@@ -222,10 +222,15 @@ const createLocalReader = (entry, host) => {
     if (loaded || content.hidden) return;
     const response = await fetch(entry.markdownPath);
     const text = await response.text();
-    makeReader(text, content);
+    
+    // Only add text-to-speech reader if NOT audio type
+    if (entry.mediaType !== "audio") {
+      makeReader(text, content);
+    }
+    
     const article = document.createElement("article");
     article.className = "reader-article";
-    article.textContent = text;
+    article.innerHTML = text;
     content.append(article);
     loaded = true;
   };
