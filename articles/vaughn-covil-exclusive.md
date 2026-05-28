@@ -1,3 +1,6 @@
+  <source src="../articles/vaughn-covil-exclusive.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
  Vaughn Covil Exclusive
 
 Josh: You are "Mr. International." Looking at your background, you've got Canadian lineage, Filipino lineage, and obviously American and English roots. Tell us about your cultural upbringing—it’s a bit of a melting pot.
