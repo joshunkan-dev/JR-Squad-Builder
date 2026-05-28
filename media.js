@@ -15,6 +15,7 @@ const publications = [
     preview: "Joshua Reports sits down with Vaughn Covil for an exclusive interview.",
     relatedPlayerId: "vaughn-covil",
     type: "local",
+    mediaType: "audio",
     markdownPath: "./articles/vaughn-covil-exclusive.md",
   },
   {
