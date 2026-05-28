@@ -10,6 +10,14 @@ const publications = [
     url: "https://www.sporf.com/kristoffer-lund-exclusive/",
   },
   {
+    title: "Vaughn Covil Exclusive",
+    date: "2024-04-09",
+    preview: "Joshua Reports sits down with Vaughn Covil for an exclusive interview.",
+    relatedPlayerId: "vaughn-covil",
+    type: "local",
+    markdownPath: "./articles/vaughn-covil-exclusive.md",
+  },
+  {
     title: "Kevin Paredes: America's Next Sensation in Europe",
     date: "2024-04-02",
     preview: "A scouting-focused breakdown of Kevin Paredes and his pathway in Europe.",
