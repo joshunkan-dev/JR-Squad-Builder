@@ -1,3 +1,5 @@
+Vaughn Covil Exclusive
+
 American Heritage & Family Dynamics
 Josh: Tell me about your American heritage through your father. Did you grow up watching American sports, visiting the United States, or having an interest in it?
 Marcus Mccoy: Actually, I've never been to the States, even though my dad is American. Growing up, my mom lived in the States for about 10 years, went to high school over there, and lived with my father. They had my sister and me. My sister was born in the States, but my parents got divorced, so my mom moved back home to Denmark and had me.
