@@ -7,7 +7,7 @@ const publications = [
     preview: "Joshua Reports chats with Marcus Mccoy about his American eligibility off the back of a Denmark youth camp \.",
     relatedPlayerId: "mccoy",
     type: "local",
-    markdownPath: "./articles/marcus-mccoy-exclusive.md", 
+    markdownPath: "./articles/marcus-mccoy-exclusive.md",
   },
   {
     title: "Kristoffer Lund Exclusive",
