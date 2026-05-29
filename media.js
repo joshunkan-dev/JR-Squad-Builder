@@ -5,7 +5,7 @@ const publications = [
     title: "Marcus Mccoy Exclusive",
     date: "2026-05-24",
     preview: "Joshua Reports chats with Marcus Mccoy about his American eligibility off the back of a Denmark youth camp \.",
-    relatedPlayerId: "marcus-mccoy",
+    relatedPlayerId: "mccoy",
     type: "local",
     markdownPath: "./articles/marcus-mccoy-exclusive.md",
   },
