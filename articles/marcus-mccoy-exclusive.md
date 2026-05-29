@@ -1,4 +1,4 @@
-Vaughn Covil Exclusive
+Marcus Mccoy Exclusive
 
 American Heritage & Family Dynamics
 Josh: Tell me about your American heritage through your father. Did you grow up watching American sports, visiting the United States, or having an interest in it?
