@@ -2,6 +2,14 @@ const { players, flagMeta } = window.USMNT_DATA;
 
 const publications = [
   {
+    title: "Marcus Mccoy Exclusive",
+    date: "2026-05-24",
+    preview: "Joshua Reports chats with Marcus Mccoy about his American eligibility off the back of a Denmark youth camp \.",
+    relatedPlayerId: "marcus-mccoy",
+    type: "local",
+    markdownPath: "./articles/marcus-mccoy.md",
+  },
+  {
     title: "Kristoffer Lund Exclusive",
     date: "2024-09-14",
     preview: "Joshua Reports sits down with Kristoffer Lund to discuss his rise and USMNT ambitions.",
