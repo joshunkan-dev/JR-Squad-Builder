@@ -104,6 +104,5 @@ playersData = playersData.map((p) => ({
   heightSource: p.heightSource || null,
 }));
 
-playersData = window.PlayerSorting.sortPlayersByCoefficient(playersData);
 
 window.USMNT_DATA = { players: playersData, flagMeta: flagMetaData };
