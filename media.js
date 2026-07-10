@@ -1,6 +1,14 @@
 const { players, flagMeta } = window.USMNT_DATA;
 
 const publications = [
+   {
+    title: "Why Recruiting Japanese Dual Nationals Is So Tricky for the USMNT",
+    date: "2026-07-26",
+    preview: "the United States has a deep and growing pool of talented players with Japanese heritage who are eligible... \.",
+    relatedPlayerId: "brandon-nozawa",
+    type: "local",
+    markdownPath: "./articles/japanese-Dual-Nationals.md",
+  },
   {
     title: "Marcus Mccoy Exclusive",
     date: "2026-05-24",
