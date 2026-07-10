@@ -7,7 +7,7 @@ const publications = [
     preview: "the United States has a deep and growing pool of talented players with Japanese heritage who are eligible... \.",
     relatedPlayerId: "brandon-nozawa",
     type: "local",
-    markdownPath: "./articles/japanese-Dual-Nationals.md",
+    markdownPath: "./articles/japanese-dual-nationals.md",
   },
   {
     title: "Marcus Mccoy Exclusive",
