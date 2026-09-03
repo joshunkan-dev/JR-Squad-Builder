@@ -56,6 +56,10 @@ const textImageBtn = document.getElementById("text-image-btn");
 const xImageBtn = document.getElementById("x-image-btn");
 const instagramImageBtn = document.getElementById("instagram-image-btn");
 const sharePreview = document.getElementById("share-preview");
+const previewImageBtn = document.getElementById("preview-image-btn");
+const imagePreviewModal = document.getElementById("image-preview-modal");
+const imagePreviewClose = document.getElementById("image-preview-close");
+const imagePreviewFull = document.getElementById("image-preview-full");
 
 const lineup = new Map();
 let activeSearchSlot = null;
@@ -421,11 +425,13 @@ const openShareModal = async () => {
   sharePreviewUrl = null;
   sharePreview.hidden = true;
   sharePreview.removeAttribute("src");
+  imagePreviewFull.removeAttribute("src");
   try {
     shareBlob = await captureBoardBlob();
     if (!shareBlob) throw new Error("Could not create image");
     sharePreviewUrl = URL.createObjectURL(shareBlob);
     sharePreview.src = sharePreviewUrl;
+    imagePreviewFull.src = sharePreviewUrl;
     sharePreview.hidden = false;
     shareStatus.textContent = "Your high-resolution lineup card is ready.";
   } catch (err) {
@@ -457,6 +463,27 @@ slotSearchClose.addEventListener("click", () => slotSearchModal.close());
 modalCloseBtn.addEventListener("click", () => modal.close());
 shareBtn.addEventListener("click", openShareModal);
 shareClose.addEventListener("click", () => shareModal.close());
+previewImageBtn.addEventListener("click", () => {
+  if (!shareBlob) return;
+  imagePreviewModal.showModal();
+  shareModal.close();
+});
+imagePreviewClose.addEventListener("click", () => imagePreviewModal.close());
+shareModal.addEventListener("close", () => {
+  if (!imagePreviewModal.open && sharePreviewUrl) {
+    URL.revokeObjectURL(sharePreviewUrl);
+    sharePreviewUrl = null;
+  }
+});
+imagePreviewModal.addEventListener("close", () => {
+  if (shareBlob && !shareModal.open) {
+    shareModal.showModal();
+    return;
+  }
+  if (!shareModal.open && sharePreviewUrl) {
+    URL.revokeObjectURL(sharePreviewUrl);
+    sharePreviewUrl = null;
+  }
 shareModal.addEventListener("close", () => {
   if (sharePreviewUrl) URL.revokeObjectURL(sharePreviewUrl);
   sharePreviewUrl = null;
