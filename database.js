@@ -136,7 +136,7 @@ const getFilteredPlayers = () => {
   const eligibleCountry = eligibleCountrySelect.value;
   const dualFilter = dualSelect.value;
 
-  return players.filter((p) => {
+  const filtered = players.filter((p) => {
     const isDual = p.eligibleCountries.length > 1;
     const passDual = dualFilter === "all" || (dualFilter === "dual" && isDual) || (dualFilter === "uncapped" && p.showDualFlagsOnCard);
     return (`${p.fullName} ${p.displayName}`.toLowerCase().includes(q)
@@ -147,6 +147,7 @@ const getFilteredPlayers = () => {
       && (!eligibleCountry || p.eligibleCountries.includes(eligibleCountry))
       && passDual);
   });
+  return window.PlayerSorting.sortPlayersByCoefficient(filtered);
 };
 
 const renderPagination = (totalPages) => {
@@ -231,7 +232,7 @@ const renderPlayers = () => {
   const pagedPlayers = filtered.slice(start, start + PAGE_SIZE);
 
   resultsEl.innerHTML = "";
-  resultCountEl.textContent = `${filtered.length} players`;
+  resultCountEl.textContent = `${filtered.length} players · ranked by league, role, then age`;
 
   pagedPlayers.forEach((player) => {
     const row = document.createElement("article");
