@@ -484,6 +484,9 @@ imagePreviewModal.addEventListener("close", () => {
     URL.revokeObjectURL(sharePreviewUrl);
     sharePreviewUrl = null;
   }
+shareModal.addEventListener("close", () => {
+  if (sharePreviewUrl) URL.revokeObjectURL(sharePreviewUrl);
+  sharePreviewUrl = null;
 });
 
 saveImageBtn.addEventListener("click", () => withShareFile(async (file) => {
