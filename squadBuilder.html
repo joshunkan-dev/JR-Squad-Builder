@@ -89,23 +89,31 @@
 
     <dialog id="share-modal" class="share-modal">
       <div class="modal-head">
-        <h3>Share Roster Image</h3>
+        <h3>Share your lineup</h3>
         <button id="share-close" type="button" aria-label="Close share">×</button>
       </div>
-      <p id="share-status">Choose how you want to share this image.</p>
+      <p id="share-status" role="status">Creating a share-ready lineup card...</p>
+      <img id="share-preview" class="share-preview" alt="Preview of your generated squad image" hidden />
       <div class="share-actions">
+        <button id="preview-image-btn" type="button">Preview Full Image</button>
         <button id="save-image-btn" type="button">Save Image</button>
-        <button id="email-image-btn" type="button">Email Image</button>
-        <button id="text-image-btn" type="button">Text Image</button>
-        <button id="x-image-btn" type="button">Share on X</button>
+        <button id="email-image-btn" type="button">Open Email</button>
+        <button id="text-image-btn" type="button">Open Text</button>
+        <button id="x-image-btn" type="button">Compose X Post</button>
         <button id="instagram-image-btn" type="button">Share on Instagram</button>
       </div>
     </dialog>
 
+    <dialog id="image-preview-modal" class="image-preview-modal">
+      <div class="modal-head">
+        <h3>Lineup image preview</h3>
+        <button id="image-preview-close" type="button" aria-label="Close image preview">×</button>
+      </div>
+      <img id="image-preview-full" alt="Full-size preview of your generated squad image" />
+    </dialog>
+
     <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
     <script src="data.js"></script>
-    <script src="sortingCoefficient.js"></script>
-    <script src="sortingCoefficient-utils.js"></script>
     <script src="app.js"></script>
       <script src="effects.js"></script>
   </body>
