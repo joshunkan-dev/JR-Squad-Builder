@@ -89,16 +89,17 @@
 
     <dialog id="share-modal" class="share-modal">
       <div class="modal-head">
-        <h3>Share Roster Image</h3>
+        <h3>Share your lineup</h3>
         <button id="share-close" type="button" aria-label="Close share">×</button>
       </div>
-      <p id="share-status">Choose how you want to share this image.</p>
+      <p id="share-status" role="status">Creating a share-ready lineup card...</p>
+      <img id="share-preview" class="share-preview" alt="Preview of your generated squad image" hidden />
       <div class="share-actions">
         <button id="save-image-btn" type="button">Save Image</button>
-        <button id="email-image-btn" type="button">Email Image</button>
-        <button id="text-image-btn" type="button">Text Image</button>
-        <button id="x-image-btn" type="button">Share on X</button>
-        <button id="instagram-image-btn" type="button">Share on Instagram</button>
+        <button id="email-image-btn" type="button">Open Email</button>
+        <button id="text-image-btn" type="button">Open Text</button>
+        <button id="x-image-btn" type="button">Compose X Post</button>
+        <button id="instagram-image-btn" type="button">Share Image</button>
       </div>
     </dialog>
 

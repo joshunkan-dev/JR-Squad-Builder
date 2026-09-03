@@ -55,10 +55,12 @@ const emailImageBtn = document.getElementById("email-image-btn");
 const textImageBtn = document.getElementById("text-image-btn");
 const xImageBtn = document.getElementById("x-image-btn");
 const instagramImageBtn = document.getElementById("instagram-image-btn");
+const sharePreview = document.getElementById("share-preview");
 
 const lineup = new Map();
 let activeSearchSlot = null;
 let shareBlob = null;
+let sharePreviewUrl = null;
 
 const getPhotoFallback = () => "./playerface.jpg";
 const proxyPhoto = (url) => `https://images.weserv.nl/?url=${encodeURIComponent(url.replace(/^https?:\/\//, ""))}`;
@@ -294,80 +296,120 @@ const createSlotNode = (slot, type = "pitch") => {
   return el;
 };
 
+const createShareCanvas = (boardCanvas) => {
+  const out = document.createElement("canvas");
+  out.width = 1600;
+  out.height = 1000;
+  const ctx = out.getContext("2d");
+
+  const background = ctx.createLinearGradient(0, 0, out.width, out.height);
+  background.addColorStop(0, "#080d28");
+  background.addColorStop(0.5, "#20134f");
+  background.addColorStop(1, "#071d43");
+  ctx.fillStyle = background;
+  ctx.fillRect(0, 0, out.width, out.height);
+
+  const paintGlow = (x, y, radius, color) => {
+    const glow = ctx.createRadialGradient(x, y, 0, x, y, radius);
+    glow.addColorStop(0, color);
+    glow.addColorStop(1, "rgba(0,0,0,0)");
+    ctx.fillStyle = glow;
+    ctx.fillRect(0, 0, out.width, out.height);
+  };
+  paintGlow(120, 80, 620, "rgba(255,58,130,.38)");
+  paintGlow(1510, 960, 680, "rgba(0,183,255,.30)");
+
+  ctx.fillStyle = "rgba(255,255,255,.08)";
+  for (let x = 0; x < out.width; x += 48) ctx.fillRect(x, 0, 1, out.height);
+  for (let y = 0; y < out.height; y += 48) ctx.fillRect(0, y, out.width, 1);
+
+  ctx.fillStyle = "rgba(255,255,255,.7)";
+  ctx.font = "700 21px Inter, Arial, sans-serif";
+  ctx.letterSpacing = "2px";
+  ctx.fillText("JOSHUA REPORTS  •  USMNT SQUAD BUILDER", 58, 54);
+  ctx.letterSpacing = "0px";
+  ctx.fillStyle = "#ffffff";
+  ctx.font = "800 52px Inter, Arial, sans-serif";
+  ctx.fillText(getRosterName(), 58, 116);
+
+  const frame = { x: 42, y: 154, width: 1516, height: 780, radius: 28 };
+  ctx.save();
+  ctx.shadowColor = "rgba(0,0,0,.42)";
+  ctx.shadowBlur = 32;
+  ctx.shadowOffsetY = 18;
+  ctx.fillStyle = "rgba(5,10,28,.78)";
+  ctx.beginPath();
+  ctx.roundRect(frame.x, frame.y, frame.width, frame.height, frame.radius);
+  ctx.fill();
+  ctx.restore();
+  ctx.strokeStyle = "rgba(255,255,255,.26)";
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.roundRect(frame.x, frame.y, frame.width, frame.height, frame.radius);
+  ctx.stroke();
+
+  const padding = 26;
+  const usableWidth = frame.width - padding * 2;
+  const usableHeight = frame.height - padding * 2;
+  const scale = Math.min(usableWidth / boardCanvas.width, usableHeight / boardCanvas.height);
+  const width = boardCanvas.width * scale;
+  const height = boardCanvas.height * scale;
+  ctx.drawImage(boardCanvas, frame.x + (frame.width - width) / 2, frame.y + (frame.height - height) / 2, width, height);
+
+  ctx.fillStyle = "rgba(255,255,255,.68)";
+  ctx.font = "600 18px Inter, Arial, sans-serif";
+  ctx.fillText("Built with Joshua Reports", 58, 974);
+  ctx.textAlign = "right";
+  ctx.fillText("USMNT Dual National Database", 1542, 974);
+  ctx.textAlign = "left";
+  return out;
+};
+
 const captureBoardBlob = async () => {
   if (!window.html2canvas) throw new Error("Capture utility unavailable");
   shareModal.classList.add("is-busy");
 
-  const isMobile = window.matchMedia("(max-width: 1100px)").matches;
-  let target = squadBoardEl;
-  let cleanup = null;
-
-  if (isMobile) {
-    const clone = squadBoardEl.cloneNode(true);
-    clone.classList.add("force-export-layout");
-    clone.style.width = "1080px";
-    clone.style.maxWidth = "1080px";
-    const holder = document.createElement("div");
-    holder.style.position = "fixed";
-    holder.style.left = "-99999px";
-    holder.style.top = "0";
-    holder.append(clone);
-    document.body.append(holder);
-    target = clone;
-    cleanup = () => holder.remove();
-  }
+  const clone = squadBoardEl.cloneNode(true);
+  clone.classList.add("force-export-layout");
+  clone.style.width = "1080px";
+  clone.style.maxWidth = "1080px";
+  const holder = document.createElement("div");
+  holder.style.position = "fixed";
+  holder.style.left = "-99999px";
+  holder.style.top = "0";
+  holder.append(clone);
+  document.body.append(holder);
 
   const renderCanvas = async (node) => {
     await waitForImages(node);
     return await Promise.race([
-      window.html2canvas(node, { backgroundColor: "#4b210c", useCORS: true, scale: 2 }),
+      window.html2canvas(node, { backgroundColor: null, useCORS: true, scale: 2 }),
       new Promise((_, reject) => setTimeout(() => reject(new Error("Capture timed out")), 12000)),
     ]);
   };
 
   let boardCanvas;
   try {
-    boardCanvas = await renderCanvas(target);
-  } catch (err) {
-    const fallbackBoard = buildInitialsFallbackClone(target);
-    const fallbackHolder = document.createElement("div");
-    fallbackHolder.style.position = "fixed";
-    fallbackHolder.style.left = "-99999px";
-    fallbackHolder.style.top = "0";
-    fallbackHolder.append(fallbackBoard);
-    document.body.append(fallbackHolder);
     try {
-      boardCanvas = await renderCanvas(fallbackBoard);
-    } finally {
-      fallbackHolder.remove();
+      boardCanvas = await renderCanvas(clone);
+    } catch (err) {
+      const fallbackBoard = buildInitialsFallbackClone(clone);
+      const fallbackHolder = document.createElement("div");
+      fallbackHolder.style.position = "fixed";
+      fallbackHolder.style.left = "-99999px";
+      fallbackHolder.style.top = "0";
+      fallbackHolder.append(fallbackBoard);
+      document.body.append(fallbackHolder);
+      try {
+        boardCanvas = await renderCanvas(fallbackBoard);
+      } finally {
+        fallbackHolder.remove();
+      }
     }
+  } finally {
+    holder.remove();
   }
-
-  cleanup?.();
-
-  const out = document.createElement("canvas");
-  out.width = 1080;
-  out.height = 1440;
-  const ctx = out.getContext("2d");
-  ctx.fillStyle = "#4b210c";
-  ctx.fillRect(0, 0, out.width, out.height);
-
-  const margin = 50;
-  const drawWidth = out.width - margin * 2;
-  const ratio = boardCanvas.height / boardCanvas.width;
-  const drawHeight = Math.min(out.height - 220, drawWidth * ratio);
-  const dy = 90;
-  ctx.drawImage(boardCanvas, margin, dy, drawWidth, drawHeight);
-
-  ctx.fillStyle = "rgba(255,255,255,0.92)";
-  ctx.font = "700 42px Manrope, sans-serif";
-  ctx.fillText(getRosterName(), margin, 56);
-
-  ctx.fillStyle = "rgba(255,255,255,0.28)";
-  ctx.font = "600 34px Manrope, sans-serif";
-  ctx.textAlign = "center";
-  ctx.fillText("Joshua Reports", out.width / 2, dy + drawHeight - 16);
-
+  const out = createShareCanvas(boardCanvas);
   return await new Promise((resolve) => out.toBlob(resolve, "image/png", 1));
 };
 
@@ -375,10 +417,17 @@ const openShareModal = async () => {
   shareModal.showModal();
   shareStatus.textContent = "Generating image...";
   shareBlob = null;
+  if (sharePreviewUrl) URL.revokeObjectURL(sharePreviewUrl);
+  sharePreviewUrl = null;
+  sharePreview.hidden = true;
+  sharePreview.removeAttribute("src");
   try {
     shareBlob = await captureBoardBlob();
     if (!shareBlob) throw new Error("Could not create image");
-    shareStatus.textContent = "Image ready. Choose Save, Email, Text, or X.";
+    sharePreviewUrl = URL.createObjectURL(shareBlob);
+    sharePreview.src = sharePreviewUrl;
+    sharePreview.hidden = false;
+    shareStatus.textContent = "Your high-resolution lineup card is ready.";
   } catch (err) {
     shareStatus.textContent = `Could not generate image: ${err.message}`;
   } finally {
@@ -408,6 +457,10 @@ slotSearchClose.addEventListener("click", () => slotSearchModal.close());
 modalCloseBtn.addEventListener("click", () => modal.close());
 shareBtn.addEventListener("click", openShareModal);
 shareClose.addEventListener("click", () => shareModal.close());
+shareModal.addEventListener("close", () => {
+  if (sharePreviewUrl) URL.revokeObjectURL(sharePreviewUrl);
+  sharePreviewUrl = null;
+});
 
 saveImageBtn.addEventListener("click", () => withShareFile(async (file) => {
   const url = URL.createObjectURL(file);
