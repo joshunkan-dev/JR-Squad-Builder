@@ -1,194 +1,103 @@
-// League ranking system - MOST IMPORTANT (50% weight)
-const LEAGUE_RANKINGS = {
-  // Tier 1: Top 5 European Leagues (in order of prestige)
-  "Premier League": 5.0,
-  "La Liga": 4.8,
-  "Serie A": 4.6,
-  "Ligue 1": 4.4,
-  "Bundesliga": 4.2,
-  
-  // Tier 2: Brazilian & Argentine Leagues (equal to strong European)
-  "Série A": 4.0,      // Brazilian top division
-  "Serie A TIM": 4.0,  // Sometimes used for Italian, but also Brazilian
-  "Brazilian Serie A": 4.0,
-  "Argentine Primera": 4.0,
-  "Primeira División": 4.0,
-  
-  // Tier 3: Other Strong European Leagues
-  "Eredivisie": 3.8,
-  "Primeira Liga": 3.7,
-  "Süper Lig": 3.6,
-  "Liga NOS": 3.6,
-  "Ligue 2": 3.5,
-  "2. Bundesliga": 3.4,
-  "Championship": 3.3,
-  "Serie B": 3.2,
-  "La Liga 2": 3.1,
-  
-  // Tier 4: Secondary European & Other Leagues
-  "Eredivisie Vrouwen": 2.9,
-  "Belgian First Division": 2.7,
-  "Greek Super League": 2.6,
-  "Czech First League": 2.5,
-  "Polish Ekstraklasa": 2.4,
-  "Swiss Super League": 2.4,
-  "Austrian Bundesliga": 2.3,
-  "Scottish Premier League": 2.2,
-  "Danish Superliga": 2.1,
-  "Swedish Allsvenskan": 2.0,
-  "Norwegian Eliteserien": 2.0,
-  
-  // Tier 5: MLS & Liga MX (EQUAL LEVEL)
-  "MLS": 1.5,
-  "Liga MX": 1.5,
-  
-  // Tier 6: Rest of World & Unknowns
-  "default": 1.0,
-};
+/*
+ * Default database ranking
+ *
+ * Ranking is intentionally lexicographic rather than a loose weighted average:
+ *   1. Top-five European top flights
+ *   2. North American top flights (MLS, Liga MX, Canadian Premier League)
+ *   3. Every other league
+ *
+ * Within a league tier, attacking players and wingers appear before midfielders,
+ * defenders, and goalkeepers. Younger players then appear first within each
+ * positional group. This keeps a league-tier difference from being erased by a
+ * small age or position difference.
+ */
 
-// Position ranking system - LEAST IMPORTANT (15% weight)
+const TOP_FIVE_COUNTRIES = new Set(["England", "Spain", "Italy", "Germany", "France"]);
+const NORTH_AMERICAN_COUNTRIES = new Set(["USA", "Canada", "Mexico"]);
+
+// These clubs play outside their country's top flight. The player data does not
+// include a league field, so this small exception list keeps the ranking honest.
+const NON_TOP_FIVE_CLUBS = new Set([
+  "Celtic",
+  "Charlton Athletic",
+  "Coventry City",
+  "Middlesbrough",
+  "West Bromwich Albion",
+  "Cesena",
+  "Palermo",
+  "Parma",
+  "Venezia",
+  "Holstein Kiel",
+  "SC Paderborn",
+]);
+
 const POSITION_RANKINGS = {
-  // Attacking (Forwards)
-  "ST": { value: 1.0 },      // Striker
-  "CF": { value: 1.0 },      // Center Forward
-  "RW": { value: 0.98 },     // Right Winger
-  "LW": { value: 0.98 },     // Left Winger
-  "RM": { value: 0.96 },     // Right Midfielder (attacking)
-  "LM": { value: 0.96 },     // Left Midfielder (attacking)
-  
-  // Attacking Midfield
-  "CAM": { value: 0.90 },    // Center Attacking Midfielder
-  "RAM": { value: 0.88 },    // Right Attacking Midfielder
-  "LAM": { value: 0.88 },    // Left Attacking Midfielder
-  
-  // Central Midfielders
-  "CM": { value: 0.80 },     // Central Midfielder
-  "RCM": { value: 0.78 },    // Right Central Midfielder
-  "LCM": { value: 0.78 },    // Left Central Midfielder
-  
-  // Defensive Midfielders
-  "CDM": { value: 0.70 },    // Central Defensive Midfielder
-  "DM": { value: 0.70 },     // Defensive Midfielder
-  
-  // Defenders
-  "CB": { value: 0.60 },     // Center Back
-  "RB": { value: 0.58 },     // Right Back
-  "LB": { value: 0.58 },     // Left Back
-  "RWB": { value: 0.62 },    // Right Wing Back
-  "LWB": { value: 0.62 },    // Left Wing Back
-  
-  // Goalkeeper
-  "GK": { value: 0.40 },     // Goalkeeper
+  LW: 600,
+  RW: 600,
+  ST: 590,
+  CF: 590,
+  RM: 500,
+  LM: 500,
+  CAM: 490,
+  RAM: 490,
+  LAM: 490,
+  CM: 400,
+  RCM: 400,
+  LCM: 400,
+  CDM: 390,
+  DM: 390,
+  LWB: 300,
+  RWB: 300,
+  LB: 290,
+  RB: 290,
+  CB: 280,
+  GK: 100,
 };
 
-/**
- * Age coefficient - SECOND MOST IMPORTANT (35% weight)
- * 
- * Logic:
- * - Teenagers (15-19): Higher score the YOUNGER you are (more impressive to get minutes)
- *   - Age 15: 1.0 (peak)
- *   - Age 19: 0.7
- * - Young Players (20-23): Drops to floor, just another young player
- *   - Age 20-23: 0.4-0.5
- * - Prime (24+): Peaks at 1.0 and holds
- */
-function getAgeCoefficient(age, position) {
-  if (age < 15) {
-    return 0.3; // Too young
-  }
-  
-  if (age >= 15 && age <= 19) {
-    // TEENAGERS: Younger = Higher score (more impressive to get minutes)
-    // Age 15 = 1.0, Age 19 = 0.7
-    return 1.0 - (age - 15) * 0.075; // Decline by 0.075 per year
-  }
-  
-  if (age >= 20 && age <= 23) {
-    // YOUNG PLAYERS: Just another young player, lower priority
-    // Range from 0.5 down to 0.4, then back up
-    if (age === 20) return 0.5;
-    if (age === 21) return 0.45;
-    if (age === 22) return 0.42;
-    if (age === 23) return 0.45; // Slight uptick before prime
-    return 0.45;
-  }
-  
-  if (age >= 24) {
-    // PRIME: 24 and up is prime years, holds at 1.0
-    return 1.0;
-  }
-  
-  return 0.3;
-}
+const normalizeClubName = (club = "") => club
+  .replace(/\s*\(loan\)\s*/i, "")
+  .trim();
 
-/**
- * Get league coefficient by parsing club info
- */
-function getLeagueCoefficient(club) {
-  if (!club) return LEAGUE_RANKINGS.default; // Free agent
-  
-  // Try exact league name match first
-  for (const [league, value] of Object.entries(LEAGUE_RANKINGS)) {
-    if (league !== "default" && club.includes(league)) {
-      return value;
-    }
-  }
-  
-  // Try extracting league from parentheses
-  const leagueMatch = club.match(/\(([^)]+)\)/);
-  if (leagueMatch) {
-    const extracted = leagueMatch[1];
-    if (LEAGUE_RANKINGS[extracted]) {
-      return LEAGUE_RANKINGS[extracted];
-    }
-  }
-  
-  // Default for unrecognized
-  return LEAGUE_RANKINGS.default;
-}
+const getLiveAge = (player) => {
+  const dob = player.dateOfBirth || player.birthDate;
+  if (!dob) return Number(player.age) || 99;
+  const born = new Date(dob);
+  if (Number.isNaN(born.getTime())) return Number(player.age) || 99;
+  const today = new Date();
+  let age = today.getFullYear() - born.getFullYear();
+  const monthDifference = today.getMonth() - born.getMonth();
+  if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < born.getDate())) age -= 1;
+  return age;
+};
 
-/**
- * Main sorting coefficient function
- * Weights: League (50%) > Age (35%) > Position (15%)
- */
-function calculateSortingCoefficient(player) {
-  const {
-    position = "GK",
-    age = 18,
-    club = null,
-  } = player;
-  
-  // Get individual coefficients
-  const positionCoef = (POSITION_RANKINGS[position] || POSITION_RANKINGS.GK).value;
-  const ageCoef = getAgeCoefficient(age, position);
-  const leagueCoef = getLeagueCoefficient(club);
-  
-  // Weighted formula: League (50%) > Age (35%) > Position (15%)
-  const coefficient =
-    (leagueCoef / 5) * 0.50 +      // Normalize league (max 5) to 0-1 range
-    ageCoef * 0.35 +               // Age has direct 0-1 range
-    positionCoef * 0.15;           // Position has lowest weight
-  
-  return coefficient;
-}
+const getLeagueTier = (player) => {
+  const club = normalizeClubName(player.club);
+  if (TOP_FIVE_COUNTRIES.has(player.clubCountry) && !NON_TOP_FIVE_CLUBS.has(club)) return 3;
+  if (NORTH_AMERICAN_COUNTRIES.has(player.clubCountry) && club !== "Derby County") return 2;
+  return 1;
+};
 
-/**
- * Sort players by coefficient (descending)
- */
-function sortPlayersByCoefficient(players) {
-  return [...players].sort((a, b) => {
-    const coeffA = calculateSortingCoefficient(a);
-    const coeffB = calculateSortingCoefficient(b);
-    return coeffB - coeffA;
-  });
-}
+const getPositionScore = (position) => POSITION_RANKINGS[position] || 0;
 
-// Export for use
+const calculateSortingCoefficient = (player) => {
+  const leagueTier = getLeagueTier(player);
+  const positionScore = getPositionScore(player.position);
+  const age = getLiveAge(player);
+
+  // League tier dominates. Position breaks ties within a tier, followed by age.
+  return leagueTier * 10000 + positionScore * 10 + Math.max(0, 100 - age);
+};
+
+const sortPlayersByCoefficient = (players) => [...players].sort((a, b) => {
+  const scoreDifference = calculateSortingCoefficient(b) - calculateSortingCoefficient(a);
+  if (scoreDifference) return scoreDifference;
+  return (a.displayName || a.fullName || "").localeCompare(b.displayName || b.fullName || "");
+});
+
 window.PlayerSorting = {
   calculateSortingCoefficient,
+  getLeagueTier,
+  getLiveAge,
+  getPositionScore,
   sortPlayersByCoefficient,
-  getAgeCoefficient,
-  getLeagueCoefficient,
-  LEAGUE_RANKINGS,
-  POSITION_RANKINGS,
 };

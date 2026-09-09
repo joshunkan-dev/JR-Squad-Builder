@@ -31,6 +31,19 @@ const paginationEl = document.getElementById("pagination");
 const quickSearchInput = document.getElementById("quick-player-search");
 const quickSearchDropdown = document.getElementById("quick-search-dropdown");
 
+const getEligibleCountries = (player) => Array.isArray(player.eligibleCountries) ? player.eligibleCountries : [];
+const getOtherPositions = (player) => Array.isArray(player.otherPositions) ? player.otherPositions : [];
+const sortPlayers = (list) => {
+  const sorter = window.PlayerSorting?.sortPlayersByCoefficient;
+  if (typeof sorter !== "function") return list;
+  try {
+    return sorter(list);
+  } catch (error) {
+    console.error("Player ranking failed; showing the available player list instead.", error);
+    return list;
+  }
+};
+
 const getPhotoFallback = () => "./playerface.jpg";
 const proxyPhoto = (url) => `https://images.weserv.nl/?url=${encodeURIComponent(url.replace(/^https?:\/\//, ""))}`;
 
@@ -94,8 +107,8 @@ const openInfoModal = (player) => {
         <li><strong>Place of birth:</strong> ${player.birthCity} <span id="birth-flag-wrap"></span></li>
         <li><strong>Height:</strong> ${getHeight(player)}</li>
         <li><strong>Dominant foot:</strong> ${player.dominantFoot}</li>
-        <li><strong>Other positions:</strong> ${player.otherPositions.length ? player.otherPositions.join(", ") : "—"}</li>
-        <li><strong>Eligible countries:</strong> ${player.eligibleCountries.join(", ")}</li>
+        <li><strong>Other positions:</strong> ${getOtherPositions(player).length ? getOtherPositions(player).join(", ") : "—"}</li>
+        <li><strong>Eligible countries:</strong> ${getEligibleCountries(player).join(", ") || "—"}</li>
       </ul>
     </div>`;
   const face = document.getElementById("modal-face");
@@ -106,7 +119,7 @@ const openInfoModal = (player) => {
 };
 
 const buildCountryOptions = () => {
-  const eligibleCountries = [...new Set(players.flatMap((p) => p.eligibleCountries))].sort((a, b) => a.localeCompare(b));
+  const eligibleCountries = [...new Set(players.flatMap(getEligibleCountries))].sort((a, b) => a.localeCompare(b));
   const clubCountries = ["USA", "England", "Spain", "Italy", "Germany", "France", "Mexico", "Netherlands", "Rest of the World"];
 
   eligibleCountrySelect.innerHTML = `<option value="">Any</option>${eligibleCountries.map((c) => `<option value="${c}">${c}</option>`).join("")}`;
@@ -136,17 +149,19 @@ const getFilteredPlayers = () => {
   const eligibleCountry = eligibleCountrySelect.value;
   const dualFilter = dualSelect.value;
 
-  return players.filter((p) => {
-    const isDual = p.eligibleCountries.length > 1;
+  const filtered = players.filter((p) => {
+    const eligibleCountries = getEligibleCountries(p);
+    const isDual = eligibleCountries.length > 1;
     const passDual = dualFilter === "all" || (dualFilter === "dual" && isDual) || (dualFilter === "uncapped" && p.showDualFlagsOnCard);
     return (`${p.fullName} ${p.displayName}`.toLowerCase().includes(q)
       && positionMatches(p, position)
       && getLiveAge(p) >= ageMin
       && getLiveAge(p) <= ageMax
       && clubCountryMatches(p, clubCountry)
-      && (!eligibleCountry || p.eligibleCountries.includes(eligibleCountry))
+      && (!eligibleCountry || eligibleCountries.includes(eligibleCountry))
       && passDual);
   });
+  return sortPlayers(filtered);
 };
 
 const renderPagination = (totalPages) => {
@@ -231,7 +246,7 @@ const renderPlayers = () => {
   const pagedPlayers = filtered.slice(start, start + PAGE_SIZE);
 
   resultsEl.innerHTML = "";
-  resultCountEl.textContent = `${filtered.length} players`;
+  resultCountEl.textContent = `${filtered.length} players · ranked by league, role, then age`;
 
   pagedPlayers.forEach((player) => {
     const row = document.createElement("article");
@@ -259,7 +274,7 @@ const renderPlayers = () => {
 
     const flags = document.createElement("div");
     flags.className = "flag-row";
-    const cardFlags = player.showDualFlagsOnCard ? player.eligibleCountries : ["USA"];
+    const cardFlags = player.showDualFlagsOnCard ? getEligibleCountries(player) : ["USA"];
     cardFlags.forEach((country) => flags.append(createFlag(country)));
 
     const left = document.createElement("div");
