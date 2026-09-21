@@ -1,4 +1,6 @@
-const { players, flagMeta } = window.USMNT_DATA;
+//const { players, flagMeta } = window.USMNT_DATA;
+let players = []
+let flagmeta = []
 
 const PAGE_SIZE = 12;
 let currentPage = 1;
@@ -173,5 +175,9 @@ if(document.getElementById("filter-submit")) {
 
 // Initial Load
 window.addEventListener("DOMContentLoaded", () => {
+  // Grab the data here, after all scripts have loaded
+  const data = window.USMNT_DATA || { players: [], flagMeta: {} };
+  players = data.players;
+  flagMeta = data.flagMeta;
   renderPlayers();
 });
