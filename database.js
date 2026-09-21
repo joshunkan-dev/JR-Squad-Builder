@@ -1,6 +1,6 @@
 //const { players, flagMeta } = window.USMNT_DATA;
 let players = []
-let flagmeta = []
+let flagMeta = []
 
 const PAGE_SIZE = 12;
 let currentPage = 1;
