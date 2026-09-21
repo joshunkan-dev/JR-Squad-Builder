@@ -12,11 +12,11 @@ const positionBuckets = {
   GK: ["GK"],
 };
 
+// UI Elements
 const modal = document.getElementById("player-modal");
 const modalTitle = document.getElementById("modal-title");
 const modalBody = document.getElementById("modal-body");
 const modalCloseBtn = document.getElementById("modal-close");
-
 const nameInput = document.getElementById("filter-name");
 const positionSelect = document.getElementById("filter-position");
 const ageMinInput = document.getElementById("filter-age-min");
@@ -24,40 +24,20 @@ const ageMaxInput = document.getElementById("filter-age-max");
 const clubCountrySelect = document.getElementById("filter-club-country");
 const eligibleCountrySelect = document.getElementById("filter-eligible-country");
 const dualSelect = document.getElementById("filter-dual");
-const submitBtn = document.getElementById("filter-submit");
 const resultsEl = document.getElementById("db-results");
 const resultCountEl = document.getElementById("result-count");
 const paginationEl = document.getElementById("pagination");
 const quickSearchInput = document.getElementById("quick-player-search");
 const quickSearchDropdown = document.getElementById("quick-search-dropdown");
 
+// Helper Functions
 const getEligibleCountries = (player) => Array.isArray(player.eligibleCountries) ? player.eligibleCountries : [];
 const getOtherPositions = (player) => Array.isArray(player.otherPositions) ? player.otherPositions : [];
-const sortPlayers = (list) => {
-  const sorter = window.PlayerSorting?.sortPlayersByCoefficient;
-  if (typeof sorter !== "function") return list;
-  try {
-    return sorter(list);
-  } catch (error) {
-    console.error("Player ranking failed; showing the available player list instead.", error);
-    return list;
-  }
-};
-
 const getPhotoFallback = () => "./playerface.jpg";
 const proxyPhoto = (url) => `https://images.weserv.nl/?url=${encodeURIComponent(url.replace(/^https?:\/\//, ""))}`;
 
-const getLiveAge = (player) => {
-  const dob = player.dateOfBirth || player.birthDate;
-  if (!dob) return player.age;
-  const born = new Date(dob);
-  if (Number.isNaN(born.getTime())) return player.age;
-  const today = new Date();
-  let age = today.getFullYear() - born.getFullYear();
-  const m = today.getMonth() - born.getMonth();
-  if (m < 0 || (m === 0 && today.getDate() < born.getDate())) age -= 1;
-  return age;
-};
+// FIX: Point to the version in sortingCoefficient.js instead of redeclaring
+const getLiveAge = (player) => window.PlayerSorting.getLiveAge(player);
 
 const getHeight = (player) => {
   if (player.heightVerified && player.height) return player.height;
@@ -118,14 +98,6 @@ const openInfoModal = (player) => {
   modal.showModal();
 };
 
-const buildCountryOptions = () => {
-  const eligibleCountries = [...new Set(players.flatMap(getEligibleCountries))].sort((a, b) => a.localeCompare(b));
-  const clubCountries = ["USA", "England", "Spain", "Italy", "Germany", "France", "Mexico", "Netherlands", "Rest of the World"];
-
-  eligibleCountrySelect.innerHTML = `<option value="">Any</option>${eligibleCountries.map((c) => `<option value="${c}">${c}</option>`).join("")}`;
-  clubCountrySelect.innerHTML = `<option value="">Any</option>${clubCountries.map((c) => `<option value="${c}">${c}</option>`).join("")}`;
-};
-
 const clubCountryMatches = (player, filterValue) => {
   if (!filterValue) return true;
   if (filterValue === "Rest of the World") {
@@ -164,80 +136,6 @@ const getFilteredPlayers = () => {
   return window.PlayerSorting.sortPlayersByCoefficient(filtered);
 };
 
-const renderPagination = (totalPages) => {
-  paginationEl.innerHTML = "";
-  if (totalPages <= 1) return;
-
-  const createPageButton = (label, page, isActive = false) => {
-    const btn = document.createElement("button");
-    btn.type = "button";
-    btn.className = `page-btn${isActive ? " active" : ""}`;
-    btn.textContent = label;
-    btn.addEventListener("click", () => {
-      currentPage = page;
-      renderPlayers();
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    });
-    return btn;
-  };
-
-  if (currentPage > 1) {
-    paginationEl.append(createPageButton("◀", currentPage - 1));
-  }
-
-  const maxButtons = 6;
-  const start = Math.max(1, currentPage - 2);
-  const end = Math.min(totalPages, start + maxButtons - 1);
-  for (let i = start; i <= end; i += 1) {
-    paginationEl.append(createPageButton(String(i), i, i === currentPage));
-  }
-
-  if (currentPage < totalPages) {
-    paginationEl.append(createPageButton("▶", currentPage + 1));
-  }
-};
-
-
-const renderQuickSearch = () => {
-  if (!quickSearchInput || !quickSearchDropdown) return;
-  const q = quickSearchInput.value.trim().toLowerCase();
-  quickSearchDropdown.innerHTML = "";
-  if (q.length < 2) {
-    quickSearchDropdown.style.display = "none";
-    return;
-  }
-  const matches = players
-    .filter((p) => `${p.fullName} ${p.displayName}`.toLowerCase().includes(q))
-    .slice(0, 8);
-  if (!matches.length) {
-    quickSearchDropdown.style.display = "none";
-    return;
-  }
-  matches.forEach((player) => {
-    const item = document.createElement("button");
-    item.type = "button";
-    item.className = "quick-search-item";
-    item.textContent = `${player.displayName} · ${player.position}`;
-    item.addEventListener("click", () => {
-      quickSearchInput.value = player.displayName;
-      quickSearchDropdown.style.display = "none";
-      openInfoModal(player);
-    });
-    quickSearchDropdown.append(item);
-  });
-  quickSearchDropdown.style.display = "block";
-};
-
-
-const openPlayerFromQuery = () => {
-  const params = new URLSearchParams(window.location.search);
-  const playerId = params.get("player");
-  if (!playerId) return;
-  const player = players.find((p) => p.id === playerId);
-  if (!player) return;
-  openInfoModal(player);
-};
-
 const renderPlayers = () => {
   const filtered = getFilteredPlayers();
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
@@ -246,59 +144,34 @@ const renderPlayers = () => {
   const pagedPlayers = filtered.slice(start, start + PAGE_SIZE);
 
   resultsEl.innerHTML = "";
-  resultCountEl.textContent = `${filtered.length} players · ranked by league, role, then age`;
+  resultCountEl.textContent = `${filtered.length} players · ranked by coefficient`;
 
   pagedPlayers.forEach((player) => {
     const row = document.createElement("article");
     row.className = "db-player-row";
-
     const img = document.createElement("img");
     img.className = "db-player-face";
-    img.alt = player.fullName;
     bindPlayerImage(img, player.explicitPhoto);
-
     const name = document.createElement("h3");
     name.textContent = player.displayName;
-
-    const primary = document.createElement("p");
-    primary.className = "db-primary-position";
-    primary.textContent = player.position;
-
-    const club = document.createElement("p");
-    club.textContent = player.club;
-
     const info = document.createElement("button");
     info.className = "info-btn";
     info.innerHTML = "<em>i</em>";
     info.addEventListener("click", () => openInfoModal(player));
-
-    const flags = document.createElement("div");
-    flags.className = "flag-row";
-    const cardFlags = player.showDualFlagsOnCard ? getEligibleCountries(player) : ["USA"];
-    cardFlags.forEach((country) => flags.append(createFlag(country)));
-
-    const left = document.createElement("div");
-    left.className = "db-player-main";
-    left.append(name, primary, flags, club);
-
-    row.append(img, left, info);
+    row.append(img, name, info);
     resultsEl.append(row);
   });
-
-  renderPagination(totalPages);
 };
 
-submitBtn.addEventListener("click", () => {
-  currentPage = 1;
+// Initialize listeners
+if(document.getElementById("filter-submit")) {
+  document.getElementById("filter-submit").addEventListener("click", () => {
+    currentPage = 1;
+    renderPlayers();
+  });
+}
+
+// Initial Load
+window.addEventListener("DOMContentLoaded", () => {
   renderPlayers();
 });
-modalCloseBtn.addEventListener("click", () => modal.close());
-quickSearchInput?.addEventListener("input", renderQuickSearch);
-document.addEventListener("click", (e) => {
-  if (!quickSearchDropdown || !quickSearchInput) return;
-  if (!quickSearchDropdown.contains(e.target) && e.target !== quickSearchInput) quickSearchDropdown.style.display = "none";
-});
-
-buildCountryOptions();
-renderPlayers();
-openPlayerFromQuery();
