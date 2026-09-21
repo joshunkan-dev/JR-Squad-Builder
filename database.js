@@ -152,7 +152,6 @@ const getFilteredPlayers = () => {
   const filtered = players.filter((p) => {
     const eligibleCountries = getEligibleCountries(p);
     const isDual = eligibleCountries.length > 1;
-    const isDual = p.eligibleCountries.length > 1;
     const passDual = dualFilter === "all" || (dualFilter === "dual" && isDual) || (dualFilter === "uncapped" && p.showDualFlagsOnCard);
     return (`${p.fullName} ${p.displayName}`.toLowerCase().includes(q)
       && positionMatches(p, position)
@@ -162,7 +161,6 @@ const getFilteredPlayers = () => {
       && (!eligibleCountry || eligibleCountries.includes(eligibleCountry))
       && passDual);
   });
-  return sortPlayers(filtered);
   return window.PlayerSorting.sortPlayersByCoefficient(filtered);
 };
 
