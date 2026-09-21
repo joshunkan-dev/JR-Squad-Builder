@@ -108,3 +108,8 @@ playersData = playersData.map((p) => ({
 
 
 window.USMNT_DATA = { players: playersData, flagMeta: flagMetaData };
+// At the bottom of data.js
+window.USMNT_DATA = {
+  players: playersData,
+  flagMeta: {} // Add flag data here later if needed
+};
