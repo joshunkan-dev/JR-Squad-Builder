@@ -175,3 +175,11 @@ window.addEventListener("DOMContentLoaded", () => {
   flagMeta = data.flagMeta;
   renderPlayers();
 });
+
+// Add this to the bottom of database.js
+const closeBtn = document.getElementById("modal-close");
+if (closeBtn) {
+  closeBtn.addEventListener("click", () => {
+    modal.close();
+  });
+}
